@@ -41,18 +41,13 @@
 (define (get-right-diagonal row col board)
     (define (helper row col acc)
         (cond
-        ;; Si se han alcanzado los limites del tablero,
-        ;; se devuelve la lista acumulada
-        [(or (>= row (length board)) (>= col (length (list-ref board 0)))) 
-                acc]
-        ;; Si no se han alcanzado los limites del tablero, 
-        ;; se agrega el elemento actual
-        ;; a la lista acumulada y se llama 
-        ;; recursivamente a la funcion con la siguiente
-        ;; fila y la siguiente columna.
+        [(or (>= row (length board)) 
+          (>= col (length (list-ref board 0)))) 
+
+          acc]
         [else 
             (helper 
-                (add1 row) (add1 col) 
+                (+ 1 row) (+ 1 col) 
                 (cons (list-ref (list-ref board row) col) acc))
         ]
         )
