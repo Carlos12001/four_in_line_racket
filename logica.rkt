@@ -6,6 +6,14 @@
 
 ;;; -------- Logica del juego ---------
 
+;; Esta funcion obtiene una fila especifica de una matriz.
+  ;;
+  ;; Entradas:
+  ;; - row: el indice de la fila que se quiere obtener
+  ;; - board: la matriz representada como una lista de listas
+  ;;
+  ;; Retorna:
+  ;; - una lista que representa la fila especifica de la matriz
 (define (get-row row board)
     (list-ref board row)
 )
