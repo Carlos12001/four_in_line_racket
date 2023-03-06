@@ -261,7 +261,7 @@
 ;               [col (in-range cols)])
 ;     (get-left-diagonal row col board)))
 
-; (println "------D-R-------")
+; (println "------D-L-------")
 ; (for-each (lambda (x) (display x) (newline)) (test-all-positions-l board2))
 
 ;; check-consecutive
