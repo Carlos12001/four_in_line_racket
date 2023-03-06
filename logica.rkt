@@ -218,12 +218,11 @@
 
 ; ;; get-row
 
-; (define (test-all-positions-row board)
-;   (define rows (length board))
-;   (define cols (length (list-ref board 0)))
-;   (for*/list ([row (in-range rows)]
-;               [col (in-range cols)])
-;     (get-row row board)))
+(define (test-all-positions-row board)
+  (define rows (length board))
+  (for*/list ([row (in-range rows)]
+              )
+    (get-row row board)))
 
 ; (println "------ROW-------")
 ; (for-each (lambda (x) (display x) (newline)) (test-all-positions-row board2))
