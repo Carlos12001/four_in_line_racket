@@ -3,10 +3,5 @@
 (require racket/gui/base)
 (require "logica.rkt")
 
-;;; -------- Interfaz del Juego ---------
+;;; -------- Interfaz del Juego ---------Z
 
-
-
-(factorial 5)
-
-(fibonacci 6)
