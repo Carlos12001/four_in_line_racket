@@ -179,11 +179,17 @@
 ;;; -------- Testing de funciones ---------
 
 ;; get-col
-(define board '((1  2   3   4)
-                (5  6   7   8)
-                (9  10  11  12)))
+; (define board '((1 0 0 0 0 0 0 0 0)
+;                 (1 0 0 0 0 0 0 0 0)
+;                 (1 0 0 0 0 0 0 0 0)
+;                 (1 0 0 0 0 0 0 0 0)
+;                 (2 0 0 0 0 0 0 0 0)
+;                 (2 0 0 0 0 0 0 0 0)
+;                 (1 0 0 0 1 0 0 0 0)
+;                 (2 1 0 0 2 0 0 0 0))
+; )
 
-; (get-col 3 board)
+; (get-col 4 board)
 
 ;; get-right-diagonal
 
@@ -198,11 +204,11 @@
 
 ;; get-left-diagonal
 
-(define (test-all-positions-l board)
-  (define rows (length board))
-  (define cols (length (list-ref board 0)))
-  (for*/list ([row (in-range rows)]
-              [col (in-range cols)])
-    (get-left-diagonal row col board)))
+; (define (test-all-positions-l board)
+;   (define rows (length board))
+;   (define cols (length (list-ref board 0)))
+;   (for*/list ([row (in-range rows)]
+;               [col (in-range cols)])
+;     (get-left-diagonal row col board)))
 
-(test-all-positions-l board)
+; (test-all-positions-l board)
