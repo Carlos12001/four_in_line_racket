@@ -155,28 +155,21 @@
   (check-all 0 0)
 )
 
-; (define (check-tie lst)
-;   (cond ((null? lst) #t)
-;         ((member 0 (car lst)) #f)
-;         (else (check-tie (cdr lst)))))
-
-;   (define (check-row row)
-;     (check-consecutive (list-ref board row) player))
-;   (define (check-col col)
-;     (check-consecutive (get-col col board) player))
-;   (define (check-diagonal row col)
-;     (check-consecutive (get-diagonal row col board) player))
-;   (define (check-all)
-;     (define (check-all-aux i j)
-;       (cond ((>= i (length board)) #t)
-;             ((>= j (length (first board))) (check-all-aux (add1 i) 0))
-;             ((or (check-row i)
-;                  (check-col j)
-;                  (check-diagonal i j))
-;              #t)
-;             (else (check-all-aux i (add1 j)))))
-;     (check-all-aux 0 0))
-;   (check-all))
+;; Esta funcion verifica si hay un empate en el tablero, es decir,
+  ;;  si no hay 
+  ;; ninguna celda vacia en la matriz
+  ;;
+  ;; Entradas:
+  ;; - lst: una matriz que representa el tablero de juego
+  ;;
+  ;; Retorna:
+  ;; - #t si no hay celdas vacias en el tablero (empate)
+  ;; - #f en otro caso
+(define (check-tie lst)
+  (cond ((null? lst) #t)
+        ((member 0 (car lst)) #f)
+        (else (check-tie (cdr lst))))
+)
 
 
 ; (define (game-over board player)
@@ -300,3 +293,16 @@
 ; ;; check-win
 ; (check-win board 1) ; #f
 ; (check-win board 2) ; #f
+
+
+;; check-tie
+; (define board3 '((1 1 1 1 2 1 2 1 2)
+;                 (1 1 1 1 1 1 1 1 1)
+;                 (1 1 1 1 2 1 1 1 1)
+;                 (2 1 1 1 2 2 2 2 2)
+;                 (2 1 1 1 0 2 2 2 2)
+;                 (1 1 1 1 1 2 2 2 2)
+;                 (2 1 2 2 1 1 2 2 2)
+;                 (1 1 2 2 2 2 1 1 1)))
+
+; (check-tie board3)
