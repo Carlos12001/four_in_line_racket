@@ -111,27 +111,49 @@
     (check-consecutive-aux 0 lst)
 )
 
-
-; (define (check-win board player)
-;   (define (check-row row)
-;     (check-consecutive (list-ref board row) player))
-;   (define (check-col col)
-;     (check-consecutive (get-col col board) player))
-;   (define (check-diagonal row col)
-;     (check-consecutive (get-diagonal row col board) player))
-;   (define (check-all)
-;     (define (check-all-aux i j)
-;       (cond ((>= i (length board)) #t)
-;             ((>= j (length (first board))) (check-all-aux (add1 i) 0))
-;             ((or (check-row i)
-;                  (check-col j)
-;                  (check-diagonal i j))
-;              #t)
-;             (else (check-all-aux i (add1 j)))))
-;     (check-all-aux 0 0))
-;   (check-all))
-
-
+;; Esta funcion verifica si hay una secuencia de cuatro elementos 
+  ;; iguales  en una fila, columna o diagonal de una tabla de cuatro
+  ;;  en línea.
+  ;;
+  ;; Entradas:
+  ;; - board: una lista de listas que representa la tabla de cuatro 
+  ;; en linea
+  ;; - player: un número que representa el jugador a verificar (1 o 2)
+  ;;
+  ;; Retorna:
+  ;; - #t si hay una secuencia de cuatro elementos iguales del jugador
+  ;; en una fila, columna o diagonal de la tabla
+  ;; - #f en otro caso
+(define (check-win board player)
+  (define (check-row row)
+    (check-consecutive (get-row row board) player))
+  (define (check-col col)
+    (check-consecutive (get-col col board) player))
+  (define (check-right-diagonal row col)
+    (check-consecutive (get-right-diagonal row col board) player))
+  (define (check-left-diagonal row col)
+    (check-consecutive (get-left-diagonal row col board) player))
+  (define (check-all i j)
+    (cond
+    [(>= i (length board)) 
+        #f
+    ]
+    [(>= j (length (car board)))
+        (check-all (+ 1 i) 0 )
+    ]
+    [(or    (check-row i) 
+            (check-col j)
+            (check-right-diagonal i j)
+            (check-left-diagonal i j))
+        #t
+    ]
+    [else 
+        (check-all i (+ 1 j))
+    ]
+    )
+  )
+  (check-all 0 0)
+)
 
 ; (define (check-tie lst)
 ;   (cond ((null? lst) #t)
@@ -206,11 +228,11 @@
 ;                 (1 0 0 0 0 0 0 0 0)
 ;                 (1 0 0 0 0 0 0 0 0)
 ;                 (2 0 0 0 0 0 0 0 0)
-;                 (2 0 0 1 0 0 0 0 0)
-;                 (2 0 1 0 0 0 0 0 0)
-;                 (2 1 0 0 1 0 0 0 0)
-;                 (1 1 0 0 2 0 0 0 0))
-; )
+;                 (2 0 0 0 0 0 0 0 0)
+;                 (1 1 1 0 0 0 0 0 0)
+;                 (2 1 2 2 1 0 0 0 0)
+;                 (1 1 2 2 2 0 0 0 0)))
+
 ; (define board2 '((  1   2   3   4)
 ;                 (   5   6   7   8)
 ;                 (   9   10  11  12))
@@ -274,3 +296,7 @@
 
 ; (check-consecutive '(1 2 3 4 5) 1)
 
+
+; ;; check-win
+; (check-win board 1) ; #f
+; (check-win board 2) ; #f
