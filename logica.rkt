@@ -78,15 +78,33 @@
     (helper row col '())
 )
 
+;; Esta funcion verifica si hay un numero consecutivo de elementos
+  ;; iguales en una lista.
+  ;;
+  ;; Entradas:
+  ;; - lst: una lista de elementos
+  ;; - elem: el elemento que se busca contar
+  ;;
+  ;; Retorna:
+  ;; - #t si hay al menos 4 elementos consecutivos iguales en la lista,
+  ;;  #f en otro caso
+(define (check-consecutive lst elem)
+    (define (check-consecutive-aux count lst)
+        (cond 
+        ((or (null? lst) (equal? 4 count)) 
+            #t
+        )
+        ((equal? (car lst) elem) 
+            (check-consecutive-aux (+ 1 count) (cdr lst))
+        )
+        (else 
+            #f
+        ))
+    )
+    (check-consecutive-aux 0 lst)
+)
 
 
-; (define (check-consecutive lst elem)
-;   (define (check-consecutive-aux count lst)
-;     (cond ((null? lst) (>= count 4))
-;           ((eq? (car lst) elem) (check-consecutive-aux (add1 count) (cdr lst)))
-;           (else (check-consecutive-aux 0 (cdr lst)))))
-;   (check-consecutive-aux 0 lst)
-; )
 
 ; (define (check-win board player)
 ;   (define (check-row row)
@@ -212,3 +230,12 @@
 ;     (get-left-diagonal row col board)))
 
 ; (test-all-positions-l board)
+
+;; check-consecutive
+
+; (check-consecutive '(1 1 1 1 2 3 4) 1)
+
+; (check-consecutive '(1 2 1 1 1 3 4) 1)
+
+; (check-consecutive '(1 2 3 4 5) 1)
+
