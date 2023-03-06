@@ -241,12 +241,13 @@
 
 ; ;; get-d-r
 
-; (define (test-all-positions-r board)
-;   (define rows (length board))
-;   (define cols (length (list-ref board 0)))
-;   (for*/list ([row (in-range rows)]
-;               [col (in-range cols)])
-;     (get-right-diagonal row col board)))
+
+; (define (test-all-positions-col board)
+;     (define cols (length (list-ref board 0)))
+;     (for*/list ([col (in-range cols)])
+;     (get-col col board)
+;     )
+; )
 
 ; (println "------D-R-------")
 ; (for-each (lambda (x) (display x) (newline)) (test-all-positions-r board2))
