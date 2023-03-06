@@ -6,16 +6,39 @@
 
 ;;; -------- Logica del juego ---------
 
-
+;; Obtiene los elementos de una columna especifica en un tablero
+  ;;
+  ;; Entradas:
+  ;; - col: numero de columna (indice iniciando en 0)
+  ;; - board: lista de listas que representa el tablero
+  ;;
+  ;; Salida:
+  ;; - Lista con los elementos en la columna especificada
 (define (get-col col board)
-  (define (get-row row)
-    (list-ref board row))
-  (define (get-col-helper col acc)
-    (if (null? acc)
-        '()
-        (cons (list-ref (car acc) col)
-              (get-col-helper col (cdr acc)))))
-  (get-col-helper col board))
+  (get-col-helper col board)
+)
+
+;; Define funcion auxiliar de get-col que obtiene los elementos de una 
+  ;; columna especifica recursivamente
+  ;;
+  ;; Entradas:
+  ;; - col: numero de columna (indice iniciando en 0)
+  ;; - acc: lista de listas que representa el tablero (se usa para 
+  ;; mantener el estado actual de la columna)
+  ;;
+  ;; Salida:
+  ;; - Lista con los elementos en la columna especificada
+(define (get-col-helper col acc)
+  (cond 
+  [(null? acc) 
+    '()
+  ]
+  [else 
+    (cons (list-ref (car acc) col) 
+          (get-col-helper col (cdr acc)))
+  ]
+  )
+)
 
 
 ; (define (get-diagonal row col board)
@@ -134,3 +157,17 @@
 
 ;   (play-turn (first players))
 ; )
+
+
+
+
+
+
+;;; -------- Testing de funciones ---------
+
+;; get-col
+(define board '((1 2 3 12) 
+                (4 5 6 23) 
+                (7 8 9 55)))
+
+(get-col 3 board) ; devuelve '(2 5 8)
