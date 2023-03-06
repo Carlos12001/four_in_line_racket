@@ -6,6 +6,9 @@
 
 ;;; -------- Logica del juego ---------
 
+(define (get-row row board)
+    (list-ref board row)
+)
 
 ;; Obtiene los elementos de una columna especifica en un tablero
   ;;
@@ -199,20 +202,45 @@
 
 ;;; -------- Testing de funciones ---------
 
-;; get-col
 ; (define board '((1 0 0 0 0 0 0 0 0)
 ;                 (1 0 0 0 0 0 0 0 0)
 ;                 (1 0 0 0 0 0 0 0 0)
-;                 (1 0 0 0 0 0 0 0 0)
 ;                 (2 0 0 0 0 0 0 0 0)
-;                 (2 0 0 0 0 0 0 0 0)
-;                 (1 0 0 0 1 0 0 0 0)
-;                 (2 1 0 0 2 0 0 0 0))
+;                 (2 0 0 1 0 0 0 0 0)
+;                 (2 0 1 0 0 0 0 0 0)
+;                 (2 1 0 0 1 0 0 0 0)
+;                 (1 1 0 0 2 0 0 0 0))
+; )
+; (define board2 '((  1   2   3   4)
+;                 (   5   6   7   8)
+;                 (   9   10  11  12))
 ; )
 
-; (get-col 4 board)
+; ;; get-row
 
-;; get-right-diagonal
+; (define (test-all-positions-row board)
+;   (define rows (length board))
+;   (define cols (length (list-ref board 0)))
+;   (for*/list ([row (in-range rows)]
+;               [col (in-range cols)])
+;     (get-row row board)))
+
+; (println "------ROW-------")
+; (for-each (lambda (x) (display x) (newline)) (test-all-positions-row board2))
+
+; ;; get-col
+
+; (define (test-all-positions-col board)
+;   (define rows (length board))
+;   (define cols (length (list-ref board 0)))
+;   (for*/list ([row (in-range rows)]
+;               [col (in-range cols)])
+;     (get-col col board)))
+    
+; (println "------COL-------")
+; (for-each (lambda (x) (display x) (newline)) (test-all-positions-col board2))
+
+; ;; get-d-r
 
 ; (define (test-all-positions-r board)
 ;   (define rows (length board))
@@ -221,9 +249,10 @@
 ;               [col (in-range cols)])
 ;     (get-right-diagonal row col board)))
 
-; (test-all-positions-r board)
+; (println "------D-R-------")
+; (for-each (lambda (x) (display x) (newline)) (test-all-positions-r board2))
 
-;; get-left-diagonal
+; ;; get-l-r
 
 ; (define (test-all-positions-l board)
 ;   (define rows (length board))
@@ -232,7 +261,8 @@
 ;               [col (in-range cols)])
 ;     (get-left-diagonal row col board)))
 
-; (test-all-positions-l board)
+; (println "------D-R-------")
+; (for-each (lambda (x) (display x) (newline)) (test-all-positions-l board2))
 
 ;; check-consecutive
 
