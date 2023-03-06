@@ -15,27 +15,13 @@
   ;; Salida:
   ;; - Lista con los elementos en la columna especificada
 (define (get-col col board)
-  (get-col-helper col board)
-)
-
-;; Define funcion auxiliar de get-col que obtiene los elementos de una 
-  ;; columna especifica recursivamente
-  ;;
-  ;; Entradas:
-  ;; - col: numero de columna (indice iniciando en 0)
-  ;; - acc: lista de listas que representa el tablero (se usa para 
-  ;; mantener el estado actual de la columna)
-  ;;
-  ;; Salida:
-  ;; - Lista con los elementos en la columna especificada
-(define (get-col-helper col acc)
   (cond 
-  [(null? acc) 
+  [(null? board) 
     '()
   ]
   [else 
-    (cons (list-ref (car acc) col) 
-          (get-col-helper col (cdr acc)))
+    (cons (list-ref (car board) col) 
+          (get-col col (cdr board)))
   ]
   )
 )
