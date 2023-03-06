@@ -218,11 +218,11 @@
 
 ; ;; get-row
 
-(define (test-all-positions-row board)
-  (define rows (length board))
-  (for*/list ([row (in-range rows)]
-              )
-    (get-row row board)))
+; (define (test-all-positions-row board)
+;   (define rows (length board))
+;   (for*/list ([row (in-range rows)]
+;               )
+;     (get-row row board)))
 
 ; (println "------ROW-------")
 ; (for-each (lambda (x) (display x) (newline)) (test-all-positions-row board2))
@@ -237,24 +237,26 @@
 ;     (get-col col board)))
     
 ; (println "------COL-------")
-; (for-each (lambda (x) (display x) (newline)) (test-all-positions-col board2))
+; ; (for-each (lambda (x) (display x) (newline)) (test-all-positions-col board2))
+; (get-col 1 board2)
 
 ; ;; get-d-r
 
 
-; (define (test-all-positions-col board)
+; (define (test-all-positions-dr board)
+;     (define rows (length board))
 ;     (define cols (length (list-ref board 0)))
-;     (for*/list ([col (in-range cols)])
-;     (get-col col board)
-;     )
+;     (for*/list ([row (in-range rows)]
+;               [col (in-range cols)])
+;     (get-right-diagonal row col board))
 ; )
 
 ; (println "------D-R-------")
-; (for-each (lambda (x) (display x) (newline)) (test-all-positions-r board2))
+; (for-each (lambda (x) (display x) (newline)) (test-all-positions-dr board2))
 
 ; ;; get-l-r
 
-; (define (test-all-positions-l board)
+; (define (test-all-positions-dl board)
 ;   (define rows (length board))
 ;   (define cols (length (list-ref board 0)))
 ;   (for*/list ([row (in-range rows)]
@@ -262,7 +264,7 @@
 ;     (get-left-diagonal row col board)))
 
 ; (println "------D-L-------")
-; (for-each (lambda (x) (display x) (newline)) (test-all-positions-l board2))
+; (for-each (lambda (x) (display x) (newline)) (test-all-positions-dl board2))
 
 ;; check-consecutive
 
