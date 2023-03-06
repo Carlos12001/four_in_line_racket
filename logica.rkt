@@ -92,14 +92,14 @@
 (define (check-consecutive lst elem)
     (define (check-consecutive-aux count lst)
         (cond 
-        ((or (null? lst) (equal? 4 count)) 
-            #t
+        ((or (null? lst)  (>= count 4))
+           (>= count 4)
         )
         ((equal? (car lst) elem) 
             (check-consecutive-aux (+ 1 count) (cdr lst))
         )
         (else 
-            #f
+            (check-consecutive-aux 0 (cdr lst))
         ))
     )
     (check-consecutive-aux 0 lst)
