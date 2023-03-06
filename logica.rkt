@@ -27,30 +27,40 @@
 )
 
 
-; (define (get-diagonal row col board)
-;   (define (get-pos n)
-;     (list-ref (list-ref board n) n))
-;   (define (get-diagonal-positions i j result)
-;     (cond ((< i (length board))
-;            (cond ((= j (max row col))
-;                   result)
-;                  (else
-;                   (get-diagonal-positions (add1 i) (add1 j)
-;                                           (cons (get-pos i) result))))))
-;           (else
-;            (list)))
-;   (define (get-diagonal-list i j result)
-;     (cond ((>= i 0)
-;            (cond ((= j (max row col))
-;                   result)
-;                  (else
-;                   (get-diagonal-list (sub1 i) (add1 j)
-;                                      (cons (get-pos i) result))))))
-;           (else
-;            (list)))
-;   (append (get-diagonal-positions row col '())
-;           (cdr (get-diagonal-list (sub1 row) (add1 col) '())))
-; )
+
+;; Obtiene los elementos de la diagonal derecha secundaria
+    ;;  que pasa por la posicion (row, col)
+    ;;
+    ;; Entradas:
+    ;; - row: indice de fila de la posicion inicial (iniciando en 0)
+    ;; - col: indice de columna de la posicion inicial (iniciando en 0)
+    ;; - board: una lista de listas que representa el tablero
+    ;;
+    ;; Salida:
+    ;; - Una lista con los elementos en la diagonal secundaria
+(define (get-right-diagonal row col board)
+    (define (helper row col acc)
+        (cond
+        ;; Si se han alcanzado los limites del tablero,
+        ;; se devuelve la lista acumulada
+        [(or (>= row (length board)) (>= col (length (list-ref board 0)))) 
+                acc]
+        ;; Si no se han alcanzado los limites del tablero, 
+        ;; se agrega el elemento actual
+        ;; a la lista acumulada y se llama 
+        ;; recursivamente a la funcion con la siguiente
+        ;; fila y la siguiente columna.
+        [else 
+            (helper 
+                (add1 row) (add1 col) 
+                (cons (list-ref (list-ref board row) col) acc))
+        ]
+        )
+    )
+    (helper row col '())
+)
+
+
 
 
 ; (define (check-consecutive lst elem)
@@ -152,8 +162,19 @@
 ;;; -------- Testing de funciones ---------
 
 ;; get-col
-(define board '((1 2 3 12) 
-                (4 5 6 23) 
-                (7 8 9 55)))
+; (define board '((1  2   3   4)
+;                 (5  6   7   8)
+;                 (9  10  11  12)))
 
-(get-col 3 board) ; devuelve '(2 5 8)
+; (get-col 3 board)
+
+;; get-diagonal
+
+; (define (test-all-positions board)
+;   (define rows (length board))
+;   (define cols (length (list-ref board 0)))
+;   (for*/list ([row (in-range rows)]
+;               [col (in-range cols)])
+;     (get-right-diagonal row col board)))
+
+; (test-all-positions board)
