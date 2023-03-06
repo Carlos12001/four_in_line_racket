@@ -12,7 +12,7 @@
   ;; - col: numero de columna (indice iniciando en 0)
   ;; - board: lista de listas que representa el tablero
   ;;
-  ;; Salida:
+  ;; Retorna:
   ;; - Lista con los elementos en la columna especificada
 (define (get-col col board)
   (cond 
@@ -36,7 +36,7 @@
     ;; - col: indice de columna de la posicion inicial (iniciando en 0)
     ;; - board: una lista de listas que representa el tablero
     ;;
-    ;; Salida:
+    ;; Retorna:
     ;; - Una lista con los elementos en la diagonal secundaria
 (define (get-right-diagonal row col board)
     (define (helper row col acc)
@@ -55,6 +55,28 @@
     (helper row col '())
 )
 
+
+;; Obtiene los elementos de la diagonal izquierda secundaria
+    ;; que pasa por la posicion (row, col) de una matriz dada.
+    ;;
+    ;; Entradas:
+    ;; - row: indice de fila de la posicion inicial (iniciando en 0).
+    ;; - col: indice de columna de la posicion inicial (iniciando en 0).
+    ;; - board: una lista de listas que representa la matriz.
+    ;;
+    ;; Retorna:
+    ;; - Una lista con los elementos en la diagonal izquierda secundaria.
+(define (get-left-diagonal row col board)
+    (define (helper row col acc)
+        (cond
+            [(or (>= row (length board)) (< col 0))
+                acc]
+            [else 
+                (helper 
+                    (+ 1 row) (- 1 col) 
+                    (cons (list-ref (list-ref board row) col) acc))]))
+    (helper row col '())
+)
 
 
 
@@ -157,19 +179,30 @@
 ;;; -------- Testing de funciones ---------
 
 ;; get-col
-; (define board '((1  2   3   4)
-;                 (5  6   7   8)
-;                 (9  10  11  12)))
+(define board '((1  2   3   4)
+                (5  6   7   8)
+                (9  10  11  12)))
 
 ; (get-col 3 board)
 
-;; get-diagonal
+;; get-right-diagonal
 
-; (define (test-all-positions board)
+; (define (test-all-positions-r board)
 ;   (define rows (length board))
 ;   (define cols (length (list-ref board 0)))
 ;   (for*/list ([row (in-range rows)]
 ;               [col (in-range cols)])
 ;     (get-right-diagonal row col board)))
 
-; (test-all-positions board)
+; (test-all-positions-r board)
+
+;; get-left-diagonal
+
+(define (test-all-positions-l board)
+  (define rows (length board))
+  (define cols (length (list-ref board 0)))
+  (for*/list ([row (in-range rows)]
+              [col (in-range cols)])
+    (get-left-diagonal row col board)))
+
+(test-all-positions-l board)
