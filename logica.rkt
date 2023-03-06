@@ -6,6 +6,7 @@
 
 ;;; -------- Logica del juego ---------
 
+
 ;; Obtiene los elementos de una columna especifica en un tablero
   ;;
   ;; Entradas:
@@ -25,7 +26,6 @@
   ]
   )
 )
-
 
 
 ;; Obtiene los elementos de la diagonal derecha secundaria
@@ -78,6 +78,7 @@
     (helper row col '())
 )
 
+
 ;; Esta funcion verifica si hay un numero consecutivo de elementos
   ;; iguales en una lista.
   ;;
@@ -103,7 +104,6 @@
     )
     (check-consecutive-aux 0 lst)
 )
-
 
 
 ; (define (check-win board player)
