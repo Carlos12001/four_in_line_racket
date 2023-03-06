@@ -67,17 +67,20 @@
     ;; Retorna:
     ;; - Una lista con los elementos en la diagonal izquierda secundaria.
 (define (get-left-diagonal row col board)
-    (define (helper row col acc)
-        (cond
-            [(or (>= row (length board)) (< col 0))
-                acc]
-            [else 
-                (helper 
-                    (+ 1 row) (- 1 col) 
-                    (cons (list-ref (list-ref board row) col) acc))]))
-    (helper row col '())
+  (define (helper row col acc)
+    (cond
+    [(or    (>= row (length board)) 
+            (>= col (length (car board))) 
+            (< col 0))
+        acc]
+    [else
+    (helper (+ 1 row) 
+            (- col 1) 
+            (cons (list-ref (list-ref board row) col) 
+        acc))
+    ]))
+  (helper row col '())
 )
-
 
 ;; Esta funcion verifica si hay un numero consecutivo de elementos
   ;; iguales en una lista.
