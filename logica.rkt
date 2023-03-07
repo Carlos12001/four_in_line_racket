@@ -179,6 +179,18 @@
         (else (check-tie (cdr lst))))
 )
 
+;; Esta funcion reemplaza un elemento en una lista con otro valor 
+  ;; dado su indice.
+  ;;
+  ;; Entradas:
+  ;; - pos: el indice del elemento a reemplazar
+  ;; - lst: la lista en la cual se quiere reemplazar el elemento
+  ;; - val: el valor que se quiere colocar en la posicion dada por el 
+  ;; indice
+  ;;
+  ;; Retorna:
+  ;; - Una nueva lista donde se ha reemplazado el elemento en la 
+  ;; posicion dada por el indice con el valor dado.
 (define (replace-ele-list pos lst val)
   (cond
     ((null? lst) '())
@@ -189,14 +201,46 @@
     )
 )
 
+;; Esta funcion reemplaza un valor en una matriz dada su posicion en
+  ;; las filas y columnas.
+  ;;
+  ;; Entradas:
+  ;; - i: la fila donde se encuentra el elemento a reemplazar
+  ;; - j: la columna donde se encuentra el elemento a reemplazar
+  ;; - board: la matriz en la que se desea hacer el reemplazo
+  ;; - val: el valor que se quiere colocar en la posicion (i,j) de la matriz
+  ;;
+  ;; Retorna:
+  ;; - Una nueva matriz con el elemento (i,j) reemplazado por el valor dado.
 (define (replace-ele-matrix i j board val)
   (replace-ele-list i board (replace-ele-list j (get-row i board) val))
 )
 
+;; Esta funcion retorna el elemento en la posicion (i,j) de una matriz.
+  ;;
+  ;; Entradas:
+  ;; - i: la fila donde se encuentra el elemento deseado
+  ;; - j: la columna donde se encuentra el elemento deseado
+  ;; - board: la matriz de la cual se quiere obtener el elemento
+  ;;
+  ;; Retorna:
+  ;; - El elemento en la posicion (i,j) de la matriz.
 (define (get-ele-matrix i j board)
   (list-ref (list-ref board i) j)
 )
 
+;; Esta funcion inserta un token en la columna dada en la matriz, de
+  ;; acuerdo a la regla de un juego de cuatro en linea. El token se
+  ;; inserta en la fila más baja disponible.
+  ;;
+  ;; Entradas:
+  ;; - col: la columna en la que se desea insertar el token
+  ;; - board: la matriz que representa el tablero de juego
+  ;; - player: el valor del jugador que está insertando el token
+  ;;
+  ;; Retorna:
+  ;; - Una nueva matriz con el token insertado en la columna dada, en 
+  ;; la fila mas baja disponible.
 (define (insert-token col board player)
   (define (insert-aux row)
     (cond
@@ -209,9 +253,9 @@
 )
 
 
-; (define (game-over board player)
-;   (cond ((check-win board player) #t)
-;         ((check-tie board))))
+(define (game-over board player)
+  (cond ((check-win board player) #t)
+        ((check-tie board))))
 
 ; (define (play-game)
 ;   (define board (make-board))
@@ -371,6 +415,6 @@
 
 ; (define board5 (insert-token 1 board4 4))
 ; (pretty-print board5)
-(newline)
+; (newline)
 
 
