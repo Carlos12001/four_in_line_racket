@@ -179,6 +179,35 @@
         (else (check-tie (cdr lst))))
 )
 
+(define (replace-ele-list pos lst val)
+  (cond
+    ((null? lst) '())
+    ((= pos 0) (cons val (cdr lst)))
+    (else (cons (car lst)
+                (replace-ele-list (- pos 1) (cdr lst) val))
+          )
+    )
+)
+
+(define (replace-ele-matrix i j board val)
+  (replace-ele-list i board (replace-ele-list j (get-row i board) val))
+)
+
+(define (get-ele-matrix i j board)
+  (list-ref (list-ref board i) j)
+)
+
+(define (insert-token col board player)
+  (define (insert-aux row)
+    (cond
+      [(< row 0) board]
+      [(zero? (get-ele-matrix row col board))
+       (replace-ele-matrix row col board player)]
+      [else (insert-aux (- row 1))]))
+
+  (insert-aux (- (length board) 1))
+)
+
 
 ; (define (game-over board player)
 ;   (cond ((check-win board player) #t)
@@ -314,3 +343,34 @@
 ;                 (1 1 2 2 2 2 1 1 1)))
 
 ; (check-tie board3)
+
+
+; ;; insert-token
+
+; (define board   '((0 0 0 0 0 0 0 0 0)
+;                   (0 0 0 0 0 0 0 0 0)
+;                   (0 0 0 0 0 0 0 0 0)
+;                   (2 0 0 0 0 0 0 0 0)
+;                   (2 0 0 0 0 0 0 0 0)
+;                   (1 0 0 0 0 0 0 0 0)
+;                   (1 0 0 0 0 0 0 0 0)
+;                   (1 0 0 0 0 0 0 0 0)))
+
+; (pretty-print board)
+; (newline)
+; (define board2 (insert-token 0 board 1))
+; (pretty-print board2)
+; (newline)
+; (define board3 (insert-token 0 board2 3))
+; (pretty-print board3)
+; (newline)
+
+; (define board4 (insert-token 0 board3 2))
+; (pretty-print board4)
+; (newline)
+
+; (define board5 (insert-token 1 board4 4))
+; (pretty-print board5)
+(newline)
+
+
