@@ -48,7 +48,6 @@
 (define frame2 (new frame% [label "4 en Linea"] [width 500] [height 500]))
 (define panel2 (new horizontal-panel% [parent frame2]))
 (define board '())
-(define buttons '())
 (define buttons-panel '())
 
 
@@ -71,7 +70,7 @@
       (define button (new button% [parent row-panel]
                                   [label "-"]
                                   [callback button-grid-callback]))
-      (set! buttons (cons button buttons))
+      (set! buttons-panel (cons button buttons-panel))
       (cond [(= elem 0) ; si el elemento es 0
              (void)]    ; no hacemos nada
             [(= elem 1) ; si el elemento es 1
@@ -85,7 +84,6 @@
   
   panel)
 )
-
 
   ;Accion de botones
 (define (button-grid-callback b e)
