@@ -29,7 +29,7 @@
 
   ;Llamada de acción del botón "check"
 (define (button-callback b e)
-  (start-game (send row-slider get-value)
+  (grid-craetor (send row-slider get-value)
               (send col-slider get-value)
               (send token-slider get-value)
   )
@@ -46,9 +46,18 @@
 ;; --------- Juego -------------
 
 (define frame2 (new frame% [label "4 en Linea"] [width 500] [height 500]))
-
-(define (start-game n m player)
-    (send frame1 show #f)
-    (send frame2 show #t)
-    (play-game n m player)
+(define panel2 (new horizontal-panel% [parent frame2]))
+(define (grid-craetor n m player)
+  
+  (define buttons '())
+  (for ([i (in-range n)])
+    (define row (new vertical-panel% [parent panel2]))
+    (for ([j (in-range m)])
+      (define button (new button% [parent row] [label "-"]))
+      (set! buttons (cons button buttons))))
+    
+  (send frame1 show #f)
+  (send frame2 show #t)
+  (play-game n m player)
+  buttons
 )
