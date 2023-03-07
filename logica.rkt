@@ -287,37 +287,3 @@
 
 
 
-; (define (play-game)
-;   (define board (make-board))
-;   (define players '(1 2))
-;   (define (next-player player)
-;   (if (eq? player (first players))
-;   (second players)
-;   (first players)))
-;   (define (get-player-piece player)
-;   (if (eq? player (first players))
-;   1
-;   2))
-;   (define (print-board)
-;   (display-board board)
-;   (newline))
-;   (define (play-turn player)
-;   (print-board)
-;   (display (format "Player ~a's turn\n" player))
-;   (let ((col (get-valid-col player)))
-;   (place-piece col player board)
-;   (if (game-over board player)
-;   (begin
-;   (print-board)
-;   (display (format "Player ~a wins!\n" player))
-;   'game-over)
-;   (if (check-tie board)
-;   (begin
-;   (print-board)
-;   (display "Tie game!\n")
-;   'game-over)
-;   (play-turn (next-player player))))))
-
-;   (play-turn (first players))
-; )
-
