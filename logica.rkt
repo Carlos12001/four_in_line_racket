@@ -252,21 +252,6 @@
   (insert-aux (- (length board) 1))
 )
 
-;; Esta funcion determina si el juego ha terminado, es decir,
-  ;; si se ha producido una victoria o un empate
-  ;;
-  ;; Entradas:
-  ;; - board: una matriz que representa el tablero de juego
-  ;; - player: un número que representa al jugador actual
-  ;;
-  ;; Retorna:
-  ;; - #t si se ha producido una victoria del jugador actual
-  ;; - #t si hay un empate
-  ;; - #f en otro caso
-(define (game-over board player)
-  (cond ((check-win board player) #t)
-        ((check-tie board))))
-
 ; (define (play-game)
 ;   (define board (make-board))
 ;   (define players '(1 2))
