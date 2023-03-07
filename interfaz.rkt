@@ -28,8 +28,9 @@
                         [parent frame1]))
 
   ;Llamada de acción del botón "check"
-(define (button-callback b e)
-  (grid-craetor (send row-slider get-value)
+(define (ready-button-callback b e)
+  (start-game 
+              (send row-slider get-value)
               (send col-slider get-value)
               (send token-slider get-value)
   )
@@ -39,25 +40,63 @@
 ; ;Crea el botón check    
 (new button% [label "Listo"]
     [parent frame1]
-    [callback button-callback])
+    [callback ready-button-callback])
 (send frame1 show #t)
 
 
 ;; --------- Juego -------------
-
 (define frame2 (new frame% [label "4 en Linea"] [width 500] [height 500]))
 (define panel2 (new horizontal-panel% [parent frame2]))
-(define (grid-craetor n m player)
-  
-  (define buttons '())
-  (for ([i (in-range n)])
-    (define row (new vertical-panel% [parent panel2]))
-    (for ([j (in-range m)])
-      (define button (new button% [parent row] [label "-"]))
-      (set! buttons (cons button buttons))))
-    
+(define board '())
+(define buttons '())
+(define buttons-panel '())
+
+
+
+(define (start-game n m player)
+  (set! board (create-matrix n m))
+  (print-matrix board)
+  (set! buttons-panel (create-board-panel board)) ; crea el panel de botones
   (send frame1 show #f)
   (send frame2 show #t)
-  (play-game n m player)
-  buttons
+)
+
+(define (create-board-panel board)
+  (define panel (new vertical-panel% [parent panel2]))
+  
+  (for ([row board])
+    (define row-panel (new horizontal-panel% [parent panel]))
+    
+    (for ([elem row])
+      (define button (new button% [parent row-panel]
+                                  [label "-"]
+                                  [callback button-grid-callback]))
+      (set! buttons (cons button buttons))
+      (cond [(= elem 0) ; si el elemento es 0
+             (void)]    ; no hacemos nada
+            [(= elem 1) ; si el elemento es 1
+             (send button set-label "1") ; establecemos la etiqueta del botón a "1"
+             (send button set-enabled #f) ; deshabilitamos el botón
+             (send button set-background "blue")] ; establecemos el fondo del botón a azul
+            [(= elem 2) ; si el elemento es 2
+             (send button set-label "2") ; establecemos la etiqueta del botón a "2"
+             (send button set-enabled #f) ; deshabilitamos el botón
+             (send button set-background "red")])) ; establecemos el fondo del botón a rojo
+  
+  panel)
+)
+
+
+  ;Accion de botones
+(define (button-grid-callback b e)
+  (displayln "Holi :3")
+  ; (set! board '((0 0 0 0 0 0 0 0 0 0)
+  ;               (0 0 0 0 0 0 0 0 0 0)
+  ;               (0 0 0 0 0 0 0 0 0 0)
+  ;               (0 0 0 0 0 0 0 0 0 0)
+  ;               (0 0 0 0 0 0 0 0 0 0)
+  ;               (0 0 0 0 0 0 0 0 0 0)
+  ;               (0 0 0 0 0 0 0 0 0 0)
+  ;               (0 0 0 0 0 1 0 0 2 0)))
+  ; (print-matrix board)
 )

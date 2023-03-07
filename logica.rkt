@@ -285,30 +285,14 @@
             (newline)
             (print-matrix (cdr matrix)))))) 
 
-
-
-; (define (play-game)
-;   (define board (create-matrix rows cols))
-
-;   (define (game-loop player)
-;     (print-matrix board)
-;     (display (format "Player ~a jugando:\n" player))
-;     (display "¿En qué columna quieres colocar tu ficha?\n")
-;     (define col (string->number (read-line)))
-;     (define new-board (insert-token col board player))
-
-;     (cond ((check-win new-board player)
-;            (print-matrix new-board)
-;            (display (format "¡Jugador ~a ha ganado!\n" player)))
-;           ((check-tie new-board)
-;            (print-matrix new-board)
-;            (display "¡Empate!\n"))
-;           (else (game-loop (if (= player 1) 2 1)))))
-
-;   (game-loop 1))
-; (play-game)
-
 (define (play-game n m player)
   (print-matrix (create-matrix n m))
+  (create-matrix n m)
 )
-(provide play-game)
+(provide play-game
+         create-matrix
+         print-matrix
+        ;  insert-aux
+        ;  check-win
+        ;  check-tie
+)
