@@ -292,7 +292,7 @@
 (provide play-game
          create-matrix
          print-matrix
-        ;  insert-aux
+        ;  insert-token
         ;  check-win
         ;  check-tie
 )
