@@ -71,30 +71,13 @@
                                   [label "-"]
                                   [callback button-grid-callback]))
       (set! buttons-panel (cons button buttons-panel))
-      (cond [(= elem 0) ; si el elemento es 0
-             (void)]    ; no hacemos nada
-            [(= elem 1) ; si el elemento es 1
-             (send button set-label "1") ; establecemos la etiqueta del botón a "1"
-             (send button set-enabled #f) ; deshabilitamos el botón
-             (send button set-background "blue")] ; establecemos el fondo del botón a azul
-            [(= elem 2) ; si el elemento es 2
-             (send button set-label "2") ; establecemos la etiqueta del botón a "2"
-             (send button set-enabled #f) ; deshabilitamos el botón
-             (send button set-background "red")])) ; establecemos el fondo del botón a rojo
-  
+      )
   panel)
 )
 
-  ;Accion de botones
 (define (button-grid-callback b e)
-  (displayln "Holi :3")
-  ; (set! board '((0 0 0 0 0 0 0 0 0 0)
-  ;               (0 0 0 0 0 0 0 0 0 0)
-  ;               (0 0 0 0 0 0 0 0 0 0)
-  ;               (0 0 0 0 0 0 0 0 0 0)
-  ;               (0 0 0 0 0 0 0 0 0 0)
-  ;               (0 0 0 0 0 0 0 0 0 0)
-  ;               (0 0 0 0 0 0 0 0 0 0)
-  ;               (0 0 0 0 0 1 0 0 2 0)))
-  ; (print-matrix board)
-)
+; (define pos (send b get-client-data))
+(set! board (insert-token 0 board 1))
+(print-matrix board)
+; (update-board-panel buttons-panel board)
+) 
