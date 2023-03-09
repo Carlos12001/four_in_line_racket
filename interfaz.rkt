@@ -107,16 +107,15 @@
   panel
 )
 
-; (define (print-buttons matrix)
-;   (for ([i (in-range (length matrix))])
-;     (for ([j (in-range (length (list-ref matrix i)))])
-;       (define b (list-ref (list-ref matrix i) j))
-;     (display (format "(~a, ~a) = " i j))
-;     (display b)
-;     )
-;     (newline)
-;   )
-; ) 
+(define (print-buttons matrix)
+  (for ([i (in-range (length matrix))])
+    (for ([j (in-range (length (list-ref matrix i)))])
+    (define b (list-ref (list-ref matrix i) j))
+    (display (format "(~a, ~a) " (send b get-row) (send b get-col)))
+    )
+    (newline)
+  )
+) 
 
 (define (button-grid-callback b e)
   (set! board (insert-token (send b get-col) board actual-player))
@@ -124,30 +123,29 @@
   (displayln (format "Jugador esta jugando: ~a" actual-player))
   (displayln (format "(~a, ~a)" (send b get-row) (send b get-col)))
   (print-matrix board)
+  ; (print-buttons buttons-panel)
 
   (change-player actual-player)
-  ; (print-matrix buttons-panel)
-  ; (update-board-panel)
+  (update-board-panel)
 ) 
 
-; (define (update-board-panel)
-;   (print-matrix buttons-panel)
-;   (for ([i (in-range (length board))])
-;     (for ([j (in-range (length (list-ref board i)))])
-;       (define button (list-ref (list-ref buttons-panel i) j))
-;       (cond
-;         [(equal? 0 (list-ref (list-ref board i) j))
-;           (send button set-label "-")
-;           (send button enable #t)]
-;         [(equal? 1 (list-ref (list-ref board i) j))
-;           (send button set-label "1")
-;           ; (send button set-background-color "red")
-;           (send button enable #f)]
-;         [(equal? 2 (list-ref (list-ref board i) j))
-;           (send button set-label "2")
-;           ; (send button set-background-color "blue")
-;           (send button enable #f)]
-;       )
-;     )
-;   )
-; )
+(define (update-board-panel)
+  (for ([i (in-range (length board))])
+    (for ([j (in-range (length (list-ref board i)))])
+      (define button (list-ref (list-ref buttons-panel i) j))
+      (cond
+        [(equal? 0 (list-ref (list-ref board i) j))
+          (send button set-label "-")
+          (send button enable #t)]
+        [(equal? 1 (list-ref (list-ref board i) j))
+          (send button set-label "1")
+          ; (send button set-background-color "red")
+          (send button enable #f)]
+        [(equal? 2 (list-ref (list-ref board i) j))
+          (send button set-label "2")
+          ; (send button set-background-color "blue")
+          (send button enable #f)]
+      )
+    )
+  )
+)
