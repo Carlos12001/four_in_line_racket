@@ -79,16 +79,18 @@
   (set! board (create-matrix n m))
   (display "Jugador esta jugando: ") (displayln actual-player)
   (print-matrix board)
-  (set! buttons-panel (create-board-panel board)) ; crea el panel de botones
+  (create-board-panel board) ; crea el panel de botones
   (send frame1 show #f)
   (send frame2 show #t)
 )
 
 (define (create-board-panel board)
   (define panel (new vertical-panel% [parent panel2]))
+  (define buttons-panel '())
   
   (for ([i (in-range (length board))])
     (define row-panel (new horizontal-panel% [parent panel]))
+    (define row-buttons '())
     
     (for ([j (in-range (length (list-ref board i)))])
       (define button (new Button% [parent row-panel]
@@ -97,8 +99,9 @@
                             [row i]
                             [col j]
                             ))
-      (set! buttons-panel (cons button buttons-panel))
+      (set! row-buttons (cons button row-buttons))
     )
+    (set! buttons-panel (cons row-buttons buttons-panel))
     )
   panel
 )
@@ -113,3 +116,24 @@
   (change-player actual-player)
   ; (update-board-panel)
 ) 
+
+; (define (update-board-panel)
+;   (for ([i (in-range (length board))])
+;     (for ([j (in-range (length (list-ref board i)))])
+;       (define button (list-ref (list-ref buttons-panel i) j))
+;       (cond
+;         [(equal? 0 (list-ref (list-ref board i) j))
+;           (send button set-label "-")
+;           (send button enable #t)]
+;         [(equal? 1 (list-ref (list-ref board i) j))
+;           (send button set-label "1")
+;           (send button set-background "red")
+;           (send button enable #f)]
+;         [(equal? 2 (list-ref (list-ref board i) j))
+;           (send button set-label "2")
+;           (send button set-background "blue")
+;           (send button enable #f)]
+;       )
+;     )
+;   )
+; )
