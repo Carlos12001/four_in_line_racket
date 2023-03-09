@@ -47,13 +47,25 @@
 ;; --------- Juego -------------
 (define frame2 (new frame% [label "4 en Linea"] [width 500] [height 500]))
 (define panel2 (new horizontal-panel% [parent frame2]))
+(define actual-player 0)
 (define board '())
 (define buttons-panel '())
-
+(define (change-player p)
+  (cond
+    [(equal? 1 p) 
+      (set! actual-player 2)
+    ]
+    [else
+      (set! actual-player 1)
+    ]
+  )
+)
 
 
 (define (start-game n m player)
+  (set! actual-player player)
   (set! board (create-matrix n m))
+  (display "Jugador esta jugando: ") (displayln actual-player)
   (print-matrix board)
   (set! buttons-panel (create-board-panel board)) ; crea el panel de botones
   (send frame1 show #f)
@@ -63,21 +75,30 @@
 (define (create-board-panel board)
   (define panel (new vertical-panel% [parent panel2]))
   
-  (for ([row board])
+  (for ([i (in-range (length board))])
     (define row-panel (new horizontal-panel% [parent panel]))
     
-    (for ([elem row])
+    (for ([j (in-range (length (list-ref board i)))])
       (define button (new button% [parent row-panel]
                                   [label "-"]
-                                  [callback button-grid-callback]))
+                                  [callback button-grid-callback]
+                                  ; [client-data (list i j)]
+                                  ))
+      ; (define pos (send button client-data))
+      ; (display pos)
       (set! buttons-panel (cons button buttons-panel))
-      )
-  panel)
+    )
+    )
+  panel
 )
 
 (define (button-grid-callback b e)
-; (define pos (send b get-client-data))
-(set! board (insert-token 0 board 1))
-(print-matrix board)
-; (update-board-panel buttons-panel board)
+  ; (define pos (send b client-data))
+  ; (display pos)
+  (display "Jugador esta jugando: ") (displayln actual-player)
+  (set! board (insert-token 1 board actual-player))
+  ; (set! board (insert-token (cadr pos) board actual-player))
+  (print-matrix board)
+  (change-player actual-player)
+  ; (update-board-panel buttons-panel board)
 ) 
