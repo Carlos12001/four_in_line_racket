@@ -1,11 +1,23 @@
 #lang racket
 
 
+(define listos '())
+
+(append listos (list 4))
+
+(define matriz '())
+(define lista '(1 2 3))
+(define lista2 '(11 22 33))
+(define lista3 '(111 222 333))
+(define lista4 '(1111 2222 3333))
 
 
+(set! matriz (append matriz (list lista)))
+(set! matriz (append matriz (list lista2)))
+(set! matriz (append matriz (list lista3)))
+(set! matriz (append matriz (list lista4)))
 
-
-
+(display matriz)
 
 
 
