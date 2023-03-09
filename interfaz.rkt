@@ -120,10 +120,24 @@
   (cond
     ((check-win board actual-player)
      (send frame2 show #f)
-     (display (format "¡Felicidades!: ¡Jugador ~a has ganado el juego!" actual-player))
+     (define frame3 (new frame% [label "Fin del Juego"]
+      [width 500]
+      [height 500]))
+     (new message% [parent frame3] 
+      [label (format "¡Felicidades!: ¡Jugador ~a has ganado el juego!" 
+     actual-player)] )
+      (send frame3 show #t)
+     (display (format "¡Felicidades!: ¡Jugador ~a has ganado el juego!" 
+     actual-player))
      )
     ((check-tie board)
      (send frame2 show #f)
+     (define frame3 (new frame% [label "Fin del Juego"] 
+     [width 500] 
+     [height 500]))
+     (new message% [parent frame3]
+      [label "Empate: ¡El juego ha terminado en empate!"] )
+      (send frame3 show #t)
      (display "Empate: ¡El juego ha terminado en empate!")
      )
     (else #f)
