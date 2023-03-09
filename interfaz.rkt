@@ -46,6 +46,7 @@
 
 ;; --------- Juego -------------
 (define frame2 (new frame% [label "4 en Linea"] [width 500] [height 500]))
+(define msg (new message% [parent frame2] [label "Jugador"] ))
 (define panel2 (new horizontal-panel% [parent frame2]))
 (define actual-player 0)
 (define board '())
@@ -77,8 +78,7 @@
 (define (start-game n m player)
   (set! actual-player player)
   (set! board (create-matrix n m))
-  (display "Jugador esta jugando: ") (displayln actual-player)
-  (print-matrix board)
+  (send msg set-label (format "Jugador: ~a" actual-player))
   (create-board-panel board) ; crea el panel de botones
   (send frame1 show #f)
   (send frame2 show #t)
@@ -99,9 +99,7 @@
                             [col j]
                             ))
       (set! row-buttons (append row-buttons (list b)))
-      (display (format "(~a, ~a) " (send b get-row) (send b get-col)))
     )
-    (newline)
     (set! buttons-panel (append buttons-panel (list row-buttons)) )
   )
   panel
@@ -123,10 +121,10 @@
   (displayln (format "Jugador esta jugando: ~a" actual-player))
   (displayln (format "(~a, ~a)" (send b get-row) (send b get-col)))
   (print-matrix board)
-  ; (print-buttons buttons-panel)
 
   (change-player actual-player)
   (update-board-panel)
+  (send msg set-label (format "Jugador: ~a" actual-player))
 ) 
 
 (define (update-board-panel)
