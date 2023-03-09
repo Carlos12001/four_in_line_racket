@@ -78,7 +78,8 @@
 (define (start-game n m player)
   (set! actual-player player)
   (set! board (create-matrix n m))
-  (send msg set-label (format "Jugador: ~a" actual-player))
+  (send msg set-label (format "Turno Juador =  ~a !" actual-player))
+  (send msg refresh)
   (create-board-panel board) ; crea el panel de botones
   (send frame1 show #f)
   (send frame2 show #t)
@@ -124,7 +125,7 @@
 
   (change-player actual-player)
   (update-board-panel)
-  (send msg set-label (format "Jugador: ~a" actual-player))
+  (send msg set-label (format "Turno Juador =  ~a !" actual-player))
 ) 
 
 (define (update-board-panel)
