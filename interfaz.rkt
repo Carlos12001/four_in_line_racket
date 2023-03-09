@@ -105,8 +105,11 @@
 
 (define (button-grid-callback b e)
   (set! board (insert-token (send b get-col) board actual-player))
-  (displayln (format "(~a, ~a)" (send b get-row) (send b get-col)))
+
   (display "Jugador esta jugando: ") (displayln actual-player)
+  (displayln (format "(~a, ~a)" (send b get-row) (send b get-col)))
   (print-matrix board)
+
   (change-player actual-player)
+  ; (update-board-panel)
 ) 
