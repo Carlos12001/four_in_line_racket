@@ -139,11 +139,9 @@
           (send button enable #t)]
         [(equal? 1 (list-ref (list-ref board i) j))
           (send button set-label "1")
-          ; (send button set-background-color "red")
           (send button enable #f)]
         [(equal? 2 (list-ref (list-ref board i) j))
           (send button set-label "2")
-          ; (send button set-background-color "blue")
           (send button enable #f)]
       )
     )
