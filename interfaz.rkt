@@ -63,8 +63,10 @@
 
 (define Button%
   (class button%
-    (init-field [col 0])
+    (init-field [row 0] [col 0])
     (super-new)
+    (define/public (get-row)
+      row)
     (define/public (get-col)
       col)
   )
@@ -92,21 +94,19 @@
       (define button (new Button% [parent row-panel]
                             [label "-"]
                             [callback button-grid-callback]
+                            [row i]
                             [col j]
                             ))
       (set! buttons-panel (cons button buttons-panel))
-      (displayln (send button get-col)) 
     )
     )
   panel
 )
 
 (define (button-grid-callback b e)
-  ; (define pos (caddr (send b client-data))) ; <-- aquí se extraen las coordenadas
-  ; (display pos)
+  (displayln (format "(~a, ~a)" (send b get-row) (send b get-col)))
   (display "Jugador esta jugando: ") (displayln actual-player)
   (set! board (insert-token 1 board actual-player))
-  ; (set! board (insert-token (cadr pos) board actual-player))
   (print-matrix board)
   (change-player actual-player)
   ; (update-board-panel buttons-panel board)
