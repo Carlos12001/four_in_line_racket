@@ -80,12 +80,10 @@
     
     (for ([j (in-range (length (list-ref board i)))])
       (define button (new button% [parent row-panel]
-                                  [label "-"]
-                                  [callback button-grid-callback]
-                                  ; [client-data (list i j)]
-                                  ))
-      ; (define pos (send button client-data))
-      ; (display pos)
+                            [label "-"]
+                            [callback button-grid-callback]
+                            ; [client-data (list i j)]
+                            ))
       (set! buttons-panel (cons button buttons-panel))
     )
     )
