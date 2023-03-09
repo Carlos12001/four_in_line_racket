@@ -91,7 +91,7 @@
   (for ([i (in-range (length board))])
     (define row-panel (new horizontal-panel% [parent panel]))
     (define row-buttons '())
-    
+
     (for ([j (in-range (length (list-ref board i)))])
       (define button (new Button% [parent row-panel]
                             [label "-"]
@@ -100,11 +100,20 @@
                             [col j]
                             ))
       (set! row-buttons (cons button row-buttons))
+      (set! buttons-panel (cons button buttons-panel)))
     )
-    (set! buttons-panel (cons row-buttons buttons-panel))
-    )
+  (print-buttons buttons-panel)
   panel
 )
+
+(define (print-buttons matrix)
+  (cond
+    ((null? matrix) (newline))
+    (else (begin
+            (display (send (car matrix) get-row))(display " , ")(display (send (car matrix) get-col))  
+            (newline)
+            (print-buttons (cdr matrix)))))
+) 
 
 (define (button-grid-callback b e)
   (set! board (insert-token (send b get-col) board actual-player))
