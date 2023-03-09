@@ -61,6 +61,16 @@
   )
 )
 
+(define Button%
+  (class button%
+    (init-field [col 0])
+    (super-new)
+    (define/public (get-col)
+      col)
+  )
+)
+
+
 
 (define (start-game n m player)
   (set! actual-player player)
@@ -79,19 +89,20 @@
     (define row-panel (new horizontal-panel% [parent panel]))
     
     (for ([j (in-range (length (list-ref board i)))])
-      (define button (new button% [parent row-panel]
+      (define button (new Button% [parent row-panel]
                             [label "-"]
                             [callback button-grid-callback]
-                            ; [client-data (list i j)]
+                            [col j]
                             ))
       (set! buttons-panel (cons button buttons-panel))
+      (displayln (send button get-col)) 
     )
     )
   panel
 )
 
 (define (button-grid-callback b e)
-  ; (define pos (send b client-data))
+  ; (define pos (caddr (send b client-data))) ; <-- aquí se extraen las coordenadas
   ; (display pos)
   (display "Jugador esta jugando: ") (displayln actual-player)
   (set! board (insert-token 1 board actual-player))
