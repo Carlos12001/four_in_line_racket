@@ -46,7 +46,7 @@
 
 ;; --------- Juego -------------
 (define frame2 (new frame% [label "4 en Linea"] [width 500] [height 500]))
-(define msg (new message% [parent frame2] [label "Jugador"] ))
+(define msg (new message% [parent frame2] [label "Turno Juador =         "] ))
 (define panel2 (new horizontal-panel% [parent frame2]))
 (define actual-player 0)
 (define board '())
@@ -116,15 +116,30 @@
   )
 ) 
 
+(define (check-game-status)
+  (cond
+    ((check-win board actual-player)
+     (send frame2 show #f)
+     (display (format "¡Felicidades!: ¡Jugador ~a has ganado el juego!" actual-player))
+     )
+    ((check-tie board)
+     (send frame2 show #f)
+     (display "Empate: ¡El juego ha terminado en empate!")
+     )
+    (else #f)
+    )
+  )
+
 (define (button-grid-callback b e)
   (set! board (insert-token (send b get-col) board actual-player))
 
-  (displayln (format "Jugador esta jugando: ~a" actual-player))
+  (displayln (format "Turno Juador =  ~a " actual-player))
   (displayln (format "(~a, ~a)" (send b get-row) (send b get-col)))
   (print-matrix board)
 
-  (change-player actual-player)
   (update-board-panel)
+  (check-game-status)
+  (change-player actual-player)
   (send msg set-label (format "Turno Juador =  ~a !" actual-player))
 ) 
 

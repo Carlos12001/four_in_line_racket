@@ -1,23 +1,52 @@
-#lang racket
+#lang racket/gui
 
 
-(define listos '())
 
-(append listos (list 4))
-
-(define matriz '())
-(define lista '(1 2 3))
-(define lista2 '(11 22 33))
-(define lista3 '(111 222 333))
-(define lista4 '(1111 2222 3333))
+(define frame (new frame% [label "Saludo"][width 500][height 500]))
+(define panel (new vertical-panel% [parent frame]))
+(define msg (new message% [parent panel] [label "¿Cuál es tu nombre?"]))
+(define entry (new text-field% [label "Nombre: "] [parent frame]))
 
 
-(set! matriz (append matriz (list lista)))
-(set! matriz (append matriz (list lista2)))
-(set! matriz (append matriz (list lista3)))
-(set! matriz (append matriz (list lista4)))
+;Llamada de acción del botón "check"
+(define (button-callback b e)
+    (let ((name (send entry get-value)))
+      (greet name)
+   )
+)
 
-(display matriz)
+(define (greet name)
+  (send msg set-label (format "Hola, ~a!" name)))
+
+      
+;Crea el botón check    
+(new button% [label "Check"]
+    [parent frame]
+    [callback button-callback])
+
+(send frame show #t)
+
+
+
+
+
+; (define listos '())
+
+; (append listos (list 4))
+
+; (define matriz '())
+; (define lista '(1 2 3))
+; (define lista2 '(11 22 33))
+; (define lista3 '(111 222 333))
+; (define lista4 '(1111 2222 3333))
+
+
+; (set! matriz (append matriz (list lista)))
+; (set! matriz (append matriz (list lista2)))
+; (set! matriz (append matriz (list lista3)))
+; (set! matriz (append matriz (list lista4)))
+
+; (display matriz)
 
 
 

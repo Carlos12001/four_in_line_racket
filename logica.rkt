@@ -293,6 +293,6 @@
          create-matrix
          print-matrix
          insert-token
-        ;  check-win
-        ;  check-tie
+         check-win
+         check-tie
 )
