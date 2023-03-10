@@ -15,17 +15,6 @@
    (list 0 0 0 1 0 0 0 0)
    (list 0 0 0 0 0 0 0 0)))
 
-(define tabla2
-  (list 
-   (list 0 0 0 0 0 0 0 0)
-   (list 0 0 0 0 0 0 0 1)
-   (list 0 0 0 0 0 0 0 2)
-   (list 0 0 0 2 0 0 2 1)
-   (list 0 2 0 1 2 2 1 2)
-   (list 2 1 1 2 1 1 2 1)
-   (list 1 2 1 2 1 2 1 2)
-   (list 2 1 2 1 2 1 2 1)))
-
 ;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo, indice de fila, indice columna, contador de columna para moverse horizontalmente, contador de fichas aliadas sucesivas, contador puntos
 (define (ver_izq tablero jugador enem i j cont_h cont_f punt)
   (cond
@@ -148,73 +137,6 @@
     (else
      (ver_b tablero jugador enem i j (+ cont_v 1) (+ cont_f 1) (+ punt 10))) ;Ficha aliada encontrada, suma más puntos.
     ))
-
-
-
-
-;Obtiene un valor en el tablero. tablero get
-(define (mget board i j)
-  (list-ref (list-ref board i) j))
-
-
-
-
-;-----------------------
-;        GREEDY
-;-----------------------
-
-;(define (greedy board player enemy)
-;  (cond
-
-
-
-
-
-
-;-----------------------
-;      Viabilidad
-;-----------------------
-
-(define (feasibility board)
-  (fea_aux board (length board) (length (list-ref board 0)) (- (length board) 1) 0 '() ))
-
-(define (fea_aux board i j cont_v cont_h res)
-  (cond
-    ((< cont_v 0)
-     (fea_aux board i j (- i 1) (+ cont_h 1) res))
-    ((= cont_h j)
-     res)
-    ((= (mget board cont_v cont_h) 0)
-     (fea_aux board i j (- i 1) (+ cont_h 1) (append res (list (list cont_v cont_h)))))
-    (else
-     (fea_aux board i j (- cont_v 1) cont_h res))))
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
