@@ -1,30 +1,30 @@
-#lang racket/gui
+; #lang racket/gui
 
 
 
-(define frame (new frame% [label "Saludo"][width 500][height 500]))
-(define panel (new vertical-panel% [parent frame]))
-(define msg (new message% [parent panel] [label "¿Cuál es tu nombre?"]))
-(define entry (new text-field% [label "Nombre: "] [parent frame]))
+; (define frame (new frame% [label "Saludo"][width 500][height 500]))
+; (define panel (new vertical-panel% [parent frame]))
+; (define msg (new message% [parent panel] [label "¿Cuál es tu nombre?"]))
+; (define entry (new text-field% [label "Nombre: "] [parent frame]))
 
 
-;Llamada de acción del botón "check"
-(define (button-callback b e)
-    (let ((name (send entry get-value)))
-      (greet name)
-   )
-)
+; ;Llamada de acción del botón "check"
+; (define (button-callback b e)
+;     (let ((name (send entry get-value)))
+;       (greet name)
+;    )
+; )
 
-(define (greet name)
-  (send msg set-label (format "Hola, ~a!" name)))
+; (define (greet name)
+;   (send msg set-label (format "Hola, ~a!" name)))
 
       
-;Crea el botón check    
-(new button% [label "Check"]
-    [parent frame]
-    [callback button-callback])
+; ;Crea el botón check    
+; (new button% [label "Check"]
+;     [parent frame]
+;     [callback button-callback])
 
-(send frame show #t)
+; (send frame show #t)
 
 
 
@@ -47,16 +47,6 @@
 ; (set! matriz (append matriz (list lista4)))
 
 ; (display matriz)
-
-
-
-
-
-
-
-
-
-
 
 
 
