@@ -296,7 +296,8 @@
 
 ;;; -------- Greddy Alorithm  ---------
 
-;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo, indice de fila, indice columna, contador de columna para moverse horizontalmente, contador de fichas aliadas sucesivas, contador puntos
+;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo, 
+  ;; indice de fila, indice columna, contador de columna para moverse horizontalmente, contador de fichas aliadas sucesivas, contador puntos
 (define (ver_izq tablero jugador enem i j cont_h cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -328,7 +329,9 @@
 
 
 ;  DIAGONAL Izq Arriba
-;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo, indice de fila, indice columna, contador de columna para moverse horizontalmente, contador de fichas aliadas sucesivas, contador puntos
+;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo,
+  ;; indice de fila, indice columna, contador de columna para moverse 
+  ;; horizontalmente, contador de fichas aliadas sucesivas, contador puntos
 (define (ver_izqa tablero jugador enem i j cont_h cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -344,7 +347,8 @@
     )
 )
 
-;Continua el trabajo de la funcion anterior pero hacia lado derecho de la fila
+;Continua el trabajo de la funcion anterior pero hacia 
+  ;; lado derecho de la fila
 (define (ver_derb tablero jugador enem i j cont_h cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -363,7 +367,9 @@
 
 
 ;  DIAGONAL Der Arriba
-;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo, indice de fila, indice columna, contador de columna para moverse horizontalmente, contador de fichas aliadas sucesivas, contador puntos
+;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo,
+  ;; indice de fila, indice columna, contador de columna para moverse 
+  ;; horizontalmente, contador de fichas aliadas sucesivas, contador puntos
 (define (ver_izqb tablero jugador enem i j cont_h cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -382,7 +388,8 @@
     )
 )
 
-;Continua el trabajo de la funcion anterior pero hacia lado derecho de la fila
+;Continua el trabajo de la funcion anterior pero hacia lado 
+  ;; derecho de la fila
 (define (ver_dera tablero jugador enem i j cont_h cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -399,7 +406,8 @@
     )
 )
 
-;Continua el trabajo de la funcion anterior pero hacia lado derecho de la fila
+;Continua el trabajo de la funcion anterior pero hacia lado 
+  ;; derecho de la fila
 (define (ver_b tablero jugador enem i j cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
