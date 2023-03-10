@@ -190,12 +190,12 @@
 ; Conjunto de Candidatos
 ;-----------------------
 
-(define (future-calculator board player enemy fea_res index)
-  (future_aux board player enemy (- (getij fea_res index 1) 1) 
+(define (candidates board player enemy fea_res index)
+  (candidates_aux board player enemy (- (getij fea_res index 1) 1) 
   (getij fea_res index 2))
 )
 
-(define (future_aux board player enemy i j)
+(define (candidates_aux board player enemy i j)
   (cond
     ((< i 0) 0)
     (else
@@ -226,7 +226,7 @@
                           (balance
                            (calculator board player enemy fea_res index)
                            (calculator board enemy player fea_res index)
-                           (future-calculator board enemy player fea_res index)
+                           (candidates board enemy player fea_res index)
                            )))))
      )
   )
@@ -291,15 +291,16 @@
   (cadr (list-ref lst random-index ))
 )
 
+; (provide greddy)
 
 (define tablaprofe
   (list 
    (list 0 0 0 0 0 0 0 0 0)
    (list 0 0 0 0 0 0 0 0 0)
    (list 0 0 0 0 0 0 0 0 0)
-   (list 0 2 0 0 0 0 0 0 0)
-   (list 0 1 1 0 0 0 0 0 0)
-   (list 0 2 1 1 0 0 0 0 0)
+   (list 1 2 0 0 0 0 0 0 0)
+   (list 1 1 1 2 0 0 0 0 0)
+   (list 1 2 1 1 0 0 0 0 0)
    (list 1 2 2 2 1 2 0 0 0)
    (list 2 1 1 1 2 2 1 2 0))
 )
