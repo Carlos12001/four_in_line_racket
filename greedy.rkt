@@ -48,6 +48,18 @@
    (list 1 0 2 2 2 0 0 1)
    (list 2 1 2 1 2 1 2 1)))
 
+(define tablaprofe
+  (list 
+   (list 0 0 0 0 0 0 0 0)
+   (list 0 0 0 0 0 0 0 0)
+   (list 0 0 0 0 0 0 0 0)
+   (list 0 0 0 0 0 0 0 0)
+   (list 0 0 0 0 0 0 0 0)
+   (list 0 0 0 1 0 0 0 0)
+   (list 0 0 2 2 0 0 0 0)
+   (list 2 1 1 1 2 0 0 0)))
+
+
          
 ;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo, indice de fila, indice columna, contador de columna para moverse horizontalmente, contador de fichas aliadas sucesivas, contador puntos
 (define (ver_izq tablero jugador enem i j cont_h cont_f punt)
@@ -188,9 +200,11 @@
 ;       El Voraz
 ;-----------------------
 
-;(define (greedy board player enemy)
-;  (cond
-
+(define (greedy board player enemy)
+  (solution
+   (selection
+    (objective board player enemy
+               (feasibility board)))))
 
 
 
@@ -275,7 +289,53 @@
         ((> enemyscore 900) 500)
         ((> futurescore 900) -500)
         (else playerscore)))
-    
+
+
+;-----------------------
+;       Seleccion
+;-----------------------
+
+
+(define (selection lst)
+  (define (car-get-points lst2)
+    (caddar lst2)
+  )
+  (define (selection_aux lst2 max-lst)
+    (cond 
+      ((null? lst2)
+       max-lst)
+      ((> (car-get-points lst2) (car-get-points max-lst))
+       (selection_aux (cdr lst2) (list (car lst2))))
+      ((= (car-get-points lst2) (car-get-points max-lst))
+       (selection_aux (cdr lst2) (append max-lst (list (car lst2)))))
+      (else
+       (selection_aux (cdr lst2) max-lst))
+    )
+  )
+  (cond
+    ((null? lst)
+     '())
+    (else
+     (selection_aux (cdr lst) (list (car lst))))
+  )
+)
+
+
+
+;-----------------------
+;       Solucion
+;-----------------------
+
+(define (solution lst)
+  (cond
+    ((= (length lst) 1) (cadr (car lst)))
+    (else
+     (solution_aux lst)
+     )))
+
+(define (solution_aux lst)
+  (define random-index (random (length lst)))
+  (cadr (list-ref lst random-index )))
 
 
 
