@@ -204,7 +204,9 @@
   (print-matrix board)
 
   (update-board-panel)
-  (check-game-status)
+  (cond 
+  ((not (check-game-status))
+  
   ;; Juega Greddy
   (change-player actual-player)
   (define play-greddy
@@ -227,6 +229,8 @@
   (check-game-status)
   ;; Sede turno player
   (change-player actual-player)
+  )
+  )
 ) 
 
 ;; Actualiza como se ve la matriz de botones
