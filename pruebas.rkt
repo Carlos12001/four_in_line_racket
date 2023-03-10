@@ -1,5 +1,121 @@
 ; #lang racket/gui
 
+; ;; ------------------------
+; ;;     Matriz de PRUEBA 
+; ;; ------------------------
+
+; (define tabla
+;   (list 
+;    (list 0 0 0 0 0 0 0 0)
+;    (list 0 0 0 0 0 1 0 0)
+;    (list 0 0 1 0 1 0 0 0)
+;    (list 0 2 1 0 1 2 0 0)
+;    (list 0 0 2 1 1 0 0 0)
+;    (list 0 0 0 1 0 1 0 0)
+;    (list 0 0 0 1 0 0 0 0)
+;    (list 0 0 0 0 0 0 0 0)))
+
+; (define tabla2
+;   (list 
+;    (list 0 0 0 0 0 0 0 0)
+;    (list 0 0 0 0 0 0 0 1)
+;    (list 0 0 0 0 0 0 0 2)
+;    (list 0 0 0 2 0 0 2 1)
+;    (list 0 2 0 1 2 2 1 2)
+;    (list 2 1 1 2 1 1 2 1)
+;    (list 1 2 1 2 1 2 1 2)
+;    (list 2 1 2 1 2 1 2 1)))
+
+; (define tabla3
+;   (list 
+;    (list 0 0 0 0 0 0 0 0)
+;    (list 0 1 0 0 0 1 0 0)
+;    (list 0 0 1 0 1 0 0 0)
+;    (list 0 2 1 0 1 2 0 0)
+;    (list 0 0 2 1 2 0 0 0)
+;    (list 0 0 0 1 0 1 0 0)
+;    (list 0 0 0 2 0 0 0 0)
+;    (list 0 0 0 0 0 0 0 0)))
+
+; (define tabla4
+;   (list 
+;    (list 0 0 0 0 0 0 0 0)
+;    (list 0 0 0 0 0 0 0 0)
+;    (list 0 0 2 2 2 0 0 0)
+;    (list 0 0 0 0 0 0 0 0)
+;    (list 0 1 0 0 0 0 0 0)
+;    (list 0 0 0 0 0 0 0 1)
+;    (list 1 0 2 2 2 0 0 1)
+;    (list 2 1 2 1 2 1 2 1)))
+
+
+
+;; --Pruebas greddy ---
+
+;(ver_izq tabla 1 2 2 3 2 0 0) EJEMPLO DE USO PARA VERIFICAR
+;(ver_izq tabla 1 2 2 3 (- 3 1) 0 0) EJEMPLO DE USO PARA VERIFICAR REAL
+;
+; ; (ver_izqa tabla 1 2 3 3 (- 3 1) (- 3 1) 0 0)
+
+
+; ; (ver_izqb tabla jugador enemigo i j (- j 1) (+ i 1) fichas puntos)
+; ; (ver_izqb tabla 1 2 3 3 (- 3 1) (+ 3 1) 0 0) EJEMPLO DE USO PARA VERIFICAR REAL
+
+
+; ; (ver_b tabla 1 2 3 3 (- 3 1) 0 0)
+
+
+; ; (calculator tabla3 1 2 '((3 3)) 0) Usado para verificar su funcionamiento
+
+
+; ; (objective tabla4 1 2 '((5 0) (4 7) (3 1)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ; (define (get-max-punctuation lst)
 ;     (define (car-get-points lst2)
 ;         (caddar lst2)
