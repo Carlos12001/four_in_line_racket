@@ -9,24 +9,34 @@
 ;; --------- Inicio -------------
 
 ;; Crea un frame1 con titulo "Inicio".
-(define frame1 (new frame% [label "Inicio"] [width 500] [height 300]))
+(define frame1 
+  (new frame% [label "Inicio"] [width 500] [height 300]
+  )
+)
 
 ;; Crea un label para mostrar un mensaje mensaje 
-(new message% [parent frame1] [label "Escoja el tamaño de la matriz"] )
+(new message% 
+    [parent frame1] 
+    [label "Escoja el tamaño de la matriz"] 
+)
 
 ;; Seleciona la tamano fila
 (define row-slider (new slider%
                         [label "Fila:   "]
                         [min-value 8]
                         [max-value 16]
-                        [parent frame1]))
+                        [parent frame1]
+                    )
+)
 
 ;; Seleciona la tamano columna
 (define col-slider (new slider%
                         [label "Columna: "]
                         [min-value 8]
                         [max-value 16]
-                        [parent frame1]))
+                        [parent frame1]
+                    )
+)
 
 ;; Seleciona la tipo de ficha
 (define token-slider (new slider%
@@ -56,22 +66,34 @@
 ;; --------- Juego -------------
 
 ;; Crea frame 2 del Juego
-(define frame2 (new frame% [label "4 en Linea"] [width 500] [height 500]))
+(define frame2 (new frame% [label "4 en Linea"] [width 500] 
+                          [height 500])
+)
 
 ;; Crea un label con un mensaje
-(define msg (new message% [parent frame2] [label "Turno Jugador =          "] ))
+(define msg (new message% [parent frame2] 
+            [label "Turno Jugador =          "] )
+)
 
 ;; Crea un panel para guardar el panel de botones
-(define panel2 (new horizontal-panel% [parent frame2]))
+(define panel2 
+  (new horizontal-panel% [parent frame2])
+)
 
 ;; Decide que cual jugador juega
-(define actual-player 0)
+(define actual-player 
+  0
+)
 
 ;; La matriz de juego
-(define board '())
+(define board 
+  '()
+)
 
 ;; La matriz de botones
-(define buttons-panel '())
+(define buttons-panel 
+  '()
+)
 
 ;; Cambia el juagador actual el otro
 (define (change-player p)
