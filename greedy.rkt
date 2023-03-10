@@ -69,11 +69,11 @@
     ((or (< cont_h 0) (< cont_h (- j 3)))
      (ver_der tablero jugador enem i j (+ j 1) cont_f punt)) ;verifica no se haya salido del rango a verificar, pasa a verificar lado opuesto.
     ((equal? (list-ref (list-ref tablero i) cont_h) enem)
-     (ver_der tablero jugador enem i j (+ j 1) cont_f (- punt 10))) ;Si se topa con ficha enemiga, resta puntos y pasa a verificar lado opuesto
+     (ver_der tablero jugador enem i j (+ j 1) cont_f (- punt 5))) ;Si se topa con ficha enemiga, resta puntos y pasa a verificar lado opuesto
     ((equal? (list-ref (list-ref tablero i) cont_h) 0)
-     (ver_izq tablero jugador enem i j (- cont_h 1) cont_f (+ punt 5))) ;Topo con espacio vacío, suma puntos pero no muchos.
+     (ver_izq tablero jugador enem i j (- cont_h 1) cont_f (+ punt 3))) ;Topo con espacio vacío, suma puntos pero no muchos.
     (else
-     (ver_izq tablero jugador enem i j (- cont_h 1) (+ cont_f 1) (+ punt 10))) ;Topo con ficha aliada, suma el doble de puntos que vacio.
+     (ver_izq tablero jugador enem i j (- cont_h 1) (+ cont_f 1) (+ punt 15))) ;Topo con ficha aliada, suma el doble de puntos que vacio.
     ))
 
 ;Continua el trabajo de la funcion anterior pero hacia lado derecho de la fila
@@ -84,11 +84,11 @@
     ((or (= cont_h (length (list-ref tablero i))) (> cont_h (+ j 3))) ;verifica no se haya salido del rango a verificar
      punt)
     ((equal? (list-ref (list-ref tablero i) cont_h) enem) ;Si se topa con ficha enemiga, resta puntos y finaliza
-     (- punt 10))
+     (- punt 5))
     ((equal? (list-ref (list-ref tablero i) cont_h) 0) ;Valor igual a 0 suma puntos, pero pocos.
-     (ver_der tablero jugador enem i j (+ cont_h 1) cont_f (+ punt 5)))
+     (ver_der tablero jugador enem i j (+ cont_h 1) cont_f (+ punt 3)))
     (else
-     (ver_der tablero jugador enem i j (+ cont_h 1) (+ cont_f 1) (+ punt 10))) ;Ficha aliada encontrada, suma más puntos.
+     (ver_der tablero jugador enem i j (+ cont_h 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma más puntos.
     ))
 
 ;(ver_izq tabla 1 2 2 3 2 0 0) EJEMPLO DE USO PARA VERIFICAR
@@ -108,11 +108,11 @@
     ((or (< cont_h 0) (< cont_h (- j 3)) (< cont_v 0) (< cont_v (- i 3)))
      (ver_derb tablero jugador enem i j (+ j 1) (+ i 1) cont_f punt)) ;verifica no se haya salido del rango a verificar, pasa a verificar lado opuesto.
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) enem)
-     (ver_derb tablero jugador enem i j (+ j 1) (+ i 1) cont_f (- punt 10))) ;Si se topa con ficha enemiga, resta puntos y pasa a verificar lado opuesto
+     (ver_derb tablero jugador enem i j (+ j 1) (+ i 1) cont_f (- punt 5))) ;Si se topa con ficha enemiga, resta puntos y pasa a verificar lado opuesto
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) 0)
-     (ver_izqa tablero jugador enem i j (- cont_h 1) (- cont_v 1) cont_f (+ punt 5))) ;Topo con espacio vacío, suma puntos pero no muchos.
+     (ver_izqa tablero jugador enem i j (- cont_h 1) (- cont_v 1) cont_f (+ punt 3))) ;Topo con espacio vacío, suma puntos pero no muchos.
     (else
-     (ver_izqa tablero jugador enem i j (- cont_h 1) (- cont_v 1) (+ cont_f 1) (+ punt 10))) ;Topo con ficha aliada, suma el doble de puntos que vacio.
+     (ver_izqa tablero jugador enem i j (- cont_h 1) (- cont_v 1) (+ cont_f 1) (+ punt 15))) ;Topo con ficha aliada, suma el doble de puntos que vacio.
     ))
 
 ;Continua el trabajo de la funcion anterior pero hacia lado derecho de la fila
@@ -123,11 +123,11 @@
     ((or (= cont_h (length (list-ref tablero i))) (> cont_h (+ j 3)) (= cont_v (length tablero)) (> cont_v (+ i 3))) ;verifica no se haya salido del rango a verificar
      punt)
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) enem) ;Si se topa con ficha enemiga, resta puntos y finaliza
-     (- punt 10))
+     (- punt 5))
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) 0) ;Valor igual a 0 suma puntos, pero pocos.
-     (ver_derb tablero jugador enem i j (+ cont_h 1) (+ cont_v 1) cont_f (+ punt 5)))
+     (ver_derb tablero jugador enem i j (+ cont_h 1) (+ cont_v 1) cont_f (+ punt 3)))
     (else
-     (ver_derb tablero jugador enem i j (+ cont_h 1) (+ cont_v 1) (+ cont_f 1) (+ punt 10))) ;Ficha aliada encontrada, suma más puntos.
+     (ver_derb tablero jugador enem i j (+ cont_h 1) (+ cont_v 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma más puntos.
     ))
 
 ;-----------------------
@@ -145,11 +145,11 @@
     ((or (< cont_h 0) (< cont_h (- j 3)) (= cont_v (length tablero)) (> cont_v (+ i 3)))
      (ver_dera tablero jugador enem i j (+ j 1) (- i 1) cont_f punt)) ;verifica no se haya salido del rango a verificar, pasa a verificar lado opuesto.
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) enem)
-     (ver_dera tablero jugador enem i j (+ j 1) (- i 1) cont_f (- punt 10))) ;Si se topa con ficha enemiga, resta puntos y pasa a verificar lado opuesto
+     (ver_dera tablero jugador enem i j (+ j 1) (- i 1) cont_f (- punt 5))) ;Si se topa con ficha enemiga, resta puntos y pasa a verificar lado opuesto
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) 0)
-     (ver_izqb tablero jugador enem i j (- cont_h 1) (+ cont_v 1) cont_f (+ punt 5))) ;Topo con espacio vacío, suma puntos pero no muchos.
+     (ver_izqb tablero jugador enem i j (- cont_h 1) (+ cont_v 1) cont_f (+ punt 3))) ;Topo con espacio vacío, suma puntos pero no muchos.
     (else
-     (ver_izqb tablero jugador enem i j (- cont_h 1) (+ cont_v 1) (+ cont_f 1) (+ punt 10))) ;Topo con ficha aliada, suma el doble de puntos que vacio.
+     (ver_izqb tablero jugador enem i j (- cont_h 1) (+ cont_v 1) (+ cont_f 1) (+ punt 15))) ;Topo con ficha aliada, suma el doble de puntos que vacio.
     ))
 
 ;Continua el trabajo de la funcion anterior pero hacia lado derecho de la fila
@@ -160,11 +160,11 @@
     ((or (= cont_h (length (list-ref tablero i))) (> cont_h (+ j 3)) (< cont_v 0) (< cont_v (- i 3))) ;verifica no se haya salido del rango a verificar
      punt)
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) enem) ;Si se topa con ficha enemiga, resta puntos y finaliza
-     (- punt 10))
+     (- punt 5))
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) 0) ;Valor igual a 0 suma puntos, pero pocos.
-     (ver_dera tablero jugador enem i j (+ cont_h 1) (- cont_v 1) cont_f (+ punt 5)))
+     (ver_dera tablero jugador enem i j (+ cont_h 1) (- cont_v 1) cont_f (+ punt 3)))
     (else
-     (ver_dera tablero jugador enem i j (+ cont_h 1) (- cont_v 1) (+ cont_f 1) (+ punt 10))) ;Ficha aliada encontrada, suma más puntos.
+     (ver_dera tablero jugador enem i j (+ cont_h 1) (- cont_v 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma más puntos.
     ))
 
 
@@ -179,11 +179,11 @@
     ((or (= cont_v (length tablero)) (> cont_v (+ j 3))) ;verifica no se haya salido del rango a verificar
      punt)
     ((equal? (list-ref (list-ref tablero cont_v) j) enem) ;Si se topa con ficha enemiga, resta puntos y finaliza
-     (- punt 10))
+     (- punt 5))
     ((equal? (list-ref (list-ref tablero cont_v) j) 0) ;Valor igual a 0 suma puntos, pero pocos.
-     (ver_b tablero jugador enem i j (+ cont_v 1) cont_f (+ punt 5)))
+     (ver_b tablero jugador enem i j (+ cont_v 1) cont_f (+ punt 3)))
     (else
-     (ver_b tablero jugador enem i j (+ cont_v 1) (+ cont_f 1) (+ punt 10))) ;Ficha aliada encontrada, suma más puntos.
+     (ver_b tablero jugador enem i j (+ cont_v 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma más puntos.
     ))
 
 
