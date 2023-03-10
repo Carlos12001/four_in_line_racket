@@ -2,14 +2,14 @@
 
 (require racket/gui/base)
 
-; (provide
-;          create-matrix
-;          print-matrix
-;          insert-token
-;          check-win
-;          check-tie
-;          greddy
-; )
+(provide
+         create-matrix
+         print-matrix
+         insert-token
+         check-win
+         check-tie
+         greddy
+)
 
 ;;; -------- Logica del juego ---------
 
