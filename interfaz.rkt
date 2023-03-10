@@ -17,14 +17,14 @@
 ;; Seleciona la tamano fila
 (define row-slider (new slider%
                         [label "Fila:   "]
-                        [min-value 3]
+                        [min-value 8]
                         [max-value 16]
                         [parent frame1]))
 
 ;; Seleciona la tamano columna
 (define col-slider (new slider%
                         [label "Columna: "]
-                        [min-value 3]
+                        [min-value 8]
                         [max-value 16]
                         [parent frame1]))
 

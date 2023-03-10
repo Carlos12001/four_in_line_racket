@@ -8,7 +8,7 @@
          insert-token
          check-win
          check-tie
-         greddy
+        ;  greddy
 )
 
 ;;; -------- Logica del juego ---------
