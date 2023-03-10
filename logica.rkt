@@ -128,12 +128,12 @@
 
 ;; Esta funcion verifica si hay una secuencia de cuatro elementos 
   ;; iguales  en una fila, columna o diagonal de una tabla de cuatro
-  ;;  en línea.
+  ;;  en linea.
   ;;
   ;; Entradas:
   ;; - board: una lista de listas que representa la tabla de cuatro 
   ;; en linea
-  ;; - player: un número que representa el jugador a verificar (1 o 2)
+  ;; - player: un numero que representa el jugador a verificar (1 o 2)
   ;;
   ;; Retorna:
   ;; - #t si hay una secuencia de cuatro elementos iguales del jugador
@@ -238,12 +238,12 @@
 
 ;; Esta funcion inserta un token en la columna dada en la matriz, de
   ;; acuerdo a la regla de un juego de cuatro en linea. El token se
-  ;; inserta en la fila más baja disponible.
+  ;; inserta en la fila mas baja disponible.
   ;;
   ;; Entradas:
   ;; - col: la columna en la que se desea insertar el token
   ;; - board: la matriz que representa el tablero de juego
-  ;; - player: el valor del jugador que está insertando el token
+  ;; - player: el valor del jugador que esta insertando el token
   ;;
   ;; Retorna:
   ;; - Una nueva matriz con el token insertado en la columna dada, en 
@@ -283,7 +283,7 @@
   ;; - matrix: la matriz que se desea imprimir
   ;;
   ;; Retorna:
-  ;; - Nada, ya que su función es solo imprimir en la consola
+  ;; - Nada, ya que su funcion es solo imprimir en la consola
 (define (print-matrix matrix)
   (cond
     ((null? matrix) (newline))
@@ -296,8 +296,26 @@
 
 ;;; -------- Greddy Alorithm  ---------
 
-;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo, 
-  ;; indice de fila, indice columna, contador de columna para moverse horizontalmente, contador de fichas aliadas sucesivas, contador puntos
+;; Esta funcion verifica si el jugador tiene 3 fichas aliadas 
+  ;; consecutivas en una fila horizontal hacia la izquierda, tomando 
+  ;; en cuenta la posicion del tablero y los valores de los jugadores.
+  ;; Entradas:
+  ;; - tablero: matriz que representa el tablero del juego
+  ;; - jugador: valor del jugador que se esta buscando (1 o 2)
+  ;; - enem: valor del jugador enemigo (1 o 2)
+  ;; - i: indice de fila actual
+  ;; - j: indice de columna actual
+  ;; - cont_h: contador de columna actual para moverse horizontalmente
+  ;; - cont_f: contador de fichas aliadas consecutivas
+  ;; - punt: contador de puntos acumulados hasta ahora
+  ;;
+  ;; Retorna:
+  ;; - Un valor numerico que representa los puntos acumulados por el 
+  ;; jugador,
+  ;;  donde 1000 significa que el jugador ha ganado, 0 significa que no
+  ;;  ha encontrado 3 
+  ;; fichas aliadas consecutivas en esa direccion y cualquier otro 
+  ;; numero positivo representa los puntos acumulados hasta ahora.
 (define (ver_izq tablero jugador enem i j cont_h cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -306,13 +324,32 @@
     ((equal? (list-ref (list-ref tablero i) cont_h) enem)
      (ver_der tablero jugador enem i j (+ j 1) cont_f (- punt 5))) ;Si se topa con ficha enemiga, resta puntos y pasa a verificar lado opuesto
     ((equal? (list-ref (list-ref tablero i) cont_h) 0)
-     (ver_izq tablero jugador enem i j (- cont_h 1) cont_f (+ punt 3))) ;Topo con espacio vacío, suma puntos pero no muchos.
+     (ver_izq tablero jugador enem i j (- cont_h 1) cont_f (+ punt 3))) ;Topo con espacio vacio, suma puntos pero no muchos.
     (else
      (ver_izq tablero jugador enem i j (- cont_h 1) (+ cont_f 1) (+ punt 15))) ;Topo con ficha aliada, suma el doble de puntos que vacio.
     )
 )
 
-;Continua el trabajo de la funcion anterior pero hacia lado derecho de la fila
+;; Esta funcion continua el trabajo de la funcion anterior hacia la 
+  ;; derecha de la fila, verificando si el jugador tiene 3 fichas aliadas 
+  ;; consecutivas en una fila horizontal hacia la derecha, tomando en 
+  ;; cuenta la posicion del tablero y los valores de los jugadores.
+  ;; Entradas:
+  ;; - tablero: matriz que representa el tablero del juego
+  ;; - jugador: valor del jugador que se esta buscando (1 o 2)
+  ;; - enem: valor del jugador enemigo (1 o 2)
+  ;; - i: indice de fila actual
+  ;; - j: indice de columna actual
+  ;; - cont_h: contador de columna actual para moverse horizontalmente
+  ;; - cont_f: contador de fichas aliadas consecutivas
+  ;; - punt: contador de puntos acumulados hasta ahora
+  ;;
+  ;; Retorna:
+  ;; - Un valor numerico que representa los puntos acumulados por el 
+  ;; jugador, donde 1000 significa que el jugador ha ganado, 0 significa
+  ;;  que no ha encontrado 3 fichas aliadas consecutivas en esa 
+  ;; direccion y cualquier otro numero positivo representa los puntos
+  ;; acumulados hasta ahora.
 (define (ver_der tablero jugador enem i j cont_h cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -323,15 +360,31 @@
     ((equal? (list-ref (list-ref tablero i) cont_h) 0) ;Valor igual a 0 suma puntos, pero pocos.
      (ver_der tablero jugador enem i j (+ cont_h 1) cont_f (+ punt 3)))
     (else
-     (ver_der tablero jugador enem i j (+ cont_h 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma más puntos.
+     (ver_der tablero jugador enem i j (+ cont_h 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma mas puntos.
     )
 )
 
-
-;  DIAGONAL Izq Arriba
-;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo,
-  ;; indice de fila, indice columna, contador de columna para moverse 
-  ;; horizontalmente, contador de fichas aliadas sucesivas, contador puntos
+;; Esta funcion verifica si el jugador tiene 3 fichas aliadas 
+  ;; consecutivas en una diagonal hacia arriba y hacia la izquierda,
+  ;;  tomando en cuenta la posicion del tablero y los valores de los 
+  ;; jugadores.
+  ;; Entradas:
+  ;; - tablero: matriz que representa el tablero del juego
+  ;; - jugador: valor del jugador que se esta buscando (1 o 2)
+  ;; - enem: valor del jugador enemigo (1 o 2)
+  ;; - i: indice de fila actual
+  ;; - j: indice de columna actual
+  ;; - cont_h: contador de columna actual para moverse horizontalmente
+  ;; - cont_v: contador de fila actual para moverse verticalmente
+  ;; - cont_f: contador de fichas aliadas consecutivas
+  ;; - punt: contador de puntos acumulados hasta ahora
+  ;;
+  ;; Retorna:
+  ;; - Un valor numerico que representa los puntos acumulados por el 
+  ;; jugador, donde 1000 significa que el jugador ha ganado, 0 significa 
+  ;; que no ha encontrado 3 fichas aliadas consecutivas en esa direccion 
+  ;; y cualquier otro numero positivo representa los puntos acumulados
+  ;;  hasta ahora.
 (define (ver_izqa tablero jugador enem i j cont_h cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -340,15 +393,34 @@
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) enem)
      (ver_derb tablero jugador enem i j (+ j 1) (+ i 1) cont_f (- punt 5))) ;Si se topa con ficha enemiga, resta puntos y pasa a verificar lado opuesto
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) 0)
-     (ver_izqa tablero jugador enem i j (- cont_h 1) (- cont_v 1) cont_f (+ punt 3))) ;Topo con espacio vacío, suma puntos pero no muchos.
+     (ver_izqa tablero jugador enem i j (- cont_h 1) (- cont_v 1) cont_f (+ punt 3))) ;Topo con espacio vacio, suma puntos pero no muchos.
     (else
      (ver_izqa tablero jugador enem i j (- cont_h 1) (- cont_v 1) 
       (+ cont_f 1) (+ punt 15))) ;Topo con ficha aliada, suma el doble de puntos que vacio.
     )
 )
 
-;Continua el trabajo de la funcion anterior pero hacia 
-  ;; lado derecho de la fila
+;; Esta funcion continua el trabajo de la funcion anterior hacia el 
+  ;; lado derecho de la fila, verificando si el jugador tiene 3 fichas
+  ;;  aliadas consecutivas en una fila horizontal hacia la derecha, 
+  ;; tomando en cuenta la posicion del tablero y los valores de los jugadores.
+  ;; Entradas:
+  ;; - tablero: matriz que representa el tablero del juego
+  ;; - jugador: valor del jugador que se esta buscando (1 o 2)
+  ;; - enem: valor del jugador enemigo (1 o 2)
+  ;; - i: indice de fila actual
+  ;; - j: indice de columna actual
+  ;; - cont_h: contador de columna actual para moverse horizontalmente
+  ;; - cont_v: contador de fila actual para moverse verticalmente
+  ;; - cont_f: contador de fichas aliadas consecutivas
+  ;; - punt: contador de puntos acumulados hasta ahora
+  ;;
+  ;; Retorna:
+  ;; - Un valor numerico que representa los puntos acumulados por el 
+  ;; jugador, donde 1000 significa que el jugador ha ganado, 0 
+  ;; significa que no ha encontrado 3 fichas aliadas consecutivas en 
+  ;; esa direccion y cualquier otro numero positivo representa los 
+  ;; puntos acumulados hasta ahora.
 (define (ver_derb tablero jugador enem i j cont_h cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -361,15 +433,31 @@
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) 0) ;Valor igual a 0 suma puntos, pero pocos.
      (ver_derb tablero jugador enem i j (+ cont_h 1) (+ cont_v 1) cont_f (+ punt 3)))
     (else
-     (ver_derb tablero jugador enem i j (+ cont_h 1) (+ cont_v 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma más puntos.
+     (ver_derb tablero jugador enem i j (+ cont_h 1) (+ cont_v 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma mas puntos.
     )
 )
 
-
-;  DIAGONAL Der Arriba
-;Recibe Matriz, valor del jugador a verificar, valor de jugador enemigo,
-  ;; indice de fila, indice columna, contador de columna para moverse 
-  ;; horizontalmente, contador de fichas aliadas sucesivas, contador puntos
+;; Esta funcion verifica si el jugador tiene 3 fichas aliadas 
+  ;; consecutivas en una diagonal hacia arriba y hacia la izquierda,
+  ;;  tomando en cuenta la posicion del tablero y los valores de 
+  ;; los jugadores.
+  ;; Entradas:
+  ;; - tablero: matriz que representa el tablero del juego
+  ;; - jugador: valor del jugador que se esta buscando (1 o 2)
+  ;; - enem: valor del jugador enemigo (1 o 2)
+  ;; - i: indice de fila actual
+  ;; - j: indice de columna actual
+  ;; - cont_h: contador de columna actual para moverse horizontalmente
+  ;; - cont_v: contador de fila actual para moverse verticalmente
+  ;; - cont_f: contador de fichas aliadas consecutivas
+  ;; - punt: contador de puntos acumulados hasta ahora
+  ;;
+  ;; Retorna:
+  ;; - Un valor numerico que representa los puntos acumulados por el 
+  ;; jugador, donde 1000 significa que el jugador ha ganado, 0 significa 
+  ;; que no ha encontrado 3 fichas aliadas consecutivas en esa direccion
+  ;;  y cualquier otro numero positivo representa los puntos acumulados
+  ;;  hasta ahora.
 (define (ver_izqb tablero jugador enem i j cont_h cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -380,7 +468,7 @@
      (ver_dera tablero jugador enem i j (+ j 1) (- i 1) cont_f (- punt 5))) ;Si se topa con ficha enemiga, resta puntos y pasa a verificar lado opuesto
     ((equal? (list-ref (list-ref tablero cont_v) cont_h) 0)
      (ver_izqb tablero jugador enem i j (- cont_h 1) 
-            (+ cont_v 1) cont_f (+ punt 3))) ;Topo con espacio vacío, suma puntos pero no muchos.
+            (+ cont_v 1) cont_f (+ punt 3))) ;Topo con espacio vacio, suma puntos pero no muchos.
     (else
      (ver_izqb tablero jugador enem i j 
         (- cont_h 1) 
@@ -388,8 +476,28 @@
     )
 )
 
-;Continua el trabajo de la funcion anterior pero hacia lado 
-  ;; derecho de la fila
+;; Esta funcion continua el trabajo de la funcion anterior hacia el 
+  ;; lado derecho de la fila, verificando si el jugador tiene 3 
+  ;; fichas aliadas consecutivas en una fila horizontal hacia la 
+  ;; derecha, tomando en cuenta la posicion del tablero y los 
+  ;; valores de los jugadores.
+  ;; Entradas:
+  ;; - tablero: matriz que representa el tablero del juego
+  ;; - jugador: valor del jugador que se esta buscando (1 o 2)
+  ;; - enem: valor del jugador enemigo (1 o 2)
+  ;; - i: indice de fila actual
+  ;; - j: indice de columna actual
+  ;; - cont_h: contador de columna actual para moverse horizontalmente
+  ;; - cont_v: contador de fila actual para moverse verticalmente
+  ;; - cont_f: contador de fichas aliadas consecutivas
+  ;; - punt: contador de puntos acumulados hasta ahora
+  ;;
+  ;; Retorna:
+  ;; - Un valor numerico que representa los puntos acumulados 
+  ;; por el jugador, donde 1000 significa que el jugador ha ganado,
+  ;;  0 significa que no ha encontrado 3 fichas aliadas consecutivas
+  ;;  en esa direccion y cualquier otro numero positivo representa 
+  ;; los puntos acumulados hasta ahora.
 (define (ver_dera tablero jugador enem i j cont_h cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -402,12 +510,30 @@
      (ver_dera tablero jugador enem i j (+ cont_h 1) (- cont_v 1) cont_f (+ punt 3)))
     (else
      (ver_dera tablero jugador enem i j (+ cont_h 1) (- cont_v 1) 
-     (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma más puntos.
+     (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma mas puntos.
     )
 )
 
-;Continua el trabajo de la funcion anterior pero hacia lado 
-  ;; derecho de la fila
+;; Esta funcion continua el trabajo de la funcion anterior hacia 
+  ;; abajo de la columna, verificando si el jugador tiene 3 fichas 
+  ;; aliadas consecutivas en una columna hacia abajo, tomando en 
+  ;; cuenta la posicion del tablero y los valores de los jugadores.
+  ;; Entradas:
+  ;; - tablero: matriz que representa el tablero del juego
+  ;; - jugador: valor del jugador que se esta buscando (1 o 2)
+  ;; - enem: valor del jugador enemigo (1 o 2)
+  ;; - i: indice de fila actual
+  ;; - j: indice de columna actual
+  ;; - cont_v: contador de fila actual para moverse verticalmente
+  ;; - cont_f: contador de fichas aliadas consecutivas
+  ;; - punt: contador de puntos acumulados hasta ahora
+  ;;
+  ;; Retorna:
+  ;; - Un valor numerico que representa los puntos acumulados por 
+  ;; el jugador, donde 1000 significa que el jugador ha ganado, 
+  ;; 0 significa que no ha encontrado 3 fichas aliadas consecutivas
+  ;;  en esa direccion y cualquier otro numero positivo representa 
+  ;; los puntos acumulados hasta ahora.
 (define (ver_b tablero jugador enem i j cont_v cont_f punt)
   (cond
     ((equal? cont_f 3) 1000) ;3 fichas aliadas alrededor, 1000 puntos ya que es gane
@@ -418,11 +544,20 @@
     ((equal? (list-ref (list-ref tablero cont_v) j) 0) ;Valor igual a 0 suma puntos, pero pocos.
      (ver_b tablero jugador enem i j (+ cont_v 1) cont_f (+ punt 3)))
     (else
-     (ver_b tablero jugador enem i j (+ cont_v 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma más puntos.
+     (ver_b tablero jugador enem i j (+ cont_v 1) (+ cont_f 1) (+ punt 15))) ;Ficha aliada encontrada, suma mas puntos.
     )
 )
 
-;Obtiene un valor en el tablero. tablero get
+;; Esta funcion se encarga de obtener el valor en una posicion
+  ;; especifica del tablero. Es una abreviatura para "tablero get".
+  ;; Entradas:
+  ;; - board: matriz que representa el tablero del juego
+  ;; - i: indice de fila de la posicion que se quiere obtener
+  ;; - j: indice de columna de la posicion que se quiere obtener
+  ;;
+  ;; Retorna:
+  ;; - Un valor numerico que representa el valor de la posicion 
+  ;; en el tablero.
 (define (mget board i j)
   (list-ref (list-ref board i) j)
 )
@@ -431,6 +566,17 @@
 ;       El Voraz
 ;-----------------------
 
+;; Esta funcion representa una estrategia de juego llamada "Greedy" 
+  ;; (Avaro). Consiste en seleccionar la opcion que maximice el puntaje 
+  ;; del jugador en cada jugada, sin considerar el futuro a largo plazo.
+  ;; Entradas:
+  ;; - board: matriz que representa el tablero del juego
+  ;; - player: valor del jugador que esta jugando (1 o 2)
+  ;; - enemy: valor del jugador enemigo (1 o 2)
+  ;;
+  ;; Retorna:
+  ;; - Una solucion optima para el jugador actual, en terminos de 
+  ;; maximizar su puntaje en la siguiente jugada.
 (define (greedy board player enemy)
   (solution
    (selection
@@ -442,11 +588,36 @@
 ;      Viabilidad
 ;-----------------------
 
+;; Esta funcion verifica la factibilidad de las posibles jugadas 
+  ;; en el tablero, es decir, si una columna aun tiene espacios 
+  ;; disponibles para colocar fichas.
+  ;; Entradas:
+  ;; - board: matriz que representa el tablero del juego
+  ;;
+  ;; Retorna:
+  ;; - Una lista con los indices de las columnas que aun tienen
+  ;;  espacios disponibles para colocar fichas.
 (define (feasibility board)
   (fea_aux board (length board) (length (list-ref board 0)) 
                 (- (length board) 1) 0 '() )
 )
 
+;;Esta funcion auxiliar es utilizada por la funcion "feasibility". 
+  ;; Se encarga de verificar la factibilidad de las posibles jugadas 
+  ;; en una columna del tablero, es decir, si aun tiene espacios 
+  ;; disponibles para colocar fichas.
+  ;; Entradas:
+  ;; - board: matriz que representa el tablero del juego
+  ;; - i: indice de fila actual
+  ;; - j: indice de columna actual
+  ;; - cont_v: contador de fila actual para moverse verticalmente
+  ;; - cont_h: contador de columna actual para moverse horizontalmente
+  ;; - res: lista de los indices de las columnas que aun tienen 
+  ;; espacios disponibles para colocar fichas
+  ;;
+  ;; Retorna:
+  ;; - Una lista con los indices de las columnas que aun tienen 
+  ;; espacios disponibles para colocar fichas.
 (define (fea_aux board i j cont_v cont_h res)
   (cond
     ((< cont_v 0)
@@ -461,7 +632,15 @@
    )
 )
     
-
+;; Esta funcion se encarga de obtener un valor especifico de una
+  ;;  lista en base a los indices dados.
+  ;; Entradas:
+  ;; - lst: lista que contiene los valores que se desean obtener
+  ;; - index: indice de la lista que se desea obtener (fila)
+  ;; - num: indice del valor que se desea obtener (columna)
+  ;;
+  ;; Retorna:
+  ;; - Un valor especifico de la lista en base a los indices dados.
 (define (getij lst index num)
   (cond
     ((= num 1)
@@ -471,7 +650,21 @@
   )
 )
 
-
+;; Esta funcion representa una parte importante del algoritmo del 
+  ;; juego. Se encarga de calcular el puntaje de una posible jugada
+  ;;  en el tablero, teniendo en cuenta la posicion actual del jugador
+  ;;  y del enemigo, asi como la factibilidad de las jugadas.
+  ;; Entradas:
+  ;; - board: matriz que representa el tablero del juego
+  ;; - player: valor del jugador que esta jugando (1 o 2)
+  ;; - enemy: valor del jugador enemigo (1 o 2)
+  ;; - fea_res: resultado de la funcion "feasibility", que contiene 
+  ;; los indices de las columnas con espacios disponibles
+  ;; - index: indice de la columna actual en "fea_res"
+  ;;
+  ;; Retorna:
+  ;; - Un valor numerico que representa el puntaje de la posible 
+  ;; jugada en esa columna del tablero.
 (define (calculator board player enemy fea_res index)
   (ver_izq board player enemy (getij fea_res index 1) (getij fea_res index 2) 
   (- (getij fea_res index 2) 1) 0
@@ -493,11 +686,42 @@
 ; Conjunto de Candidatos
 ;-----------------------
 
+;; Esta funcion se utiliza para obtener los posibles movimientos 
+  ;; o candidatos para una jugada en el tablero en la columna 
+  ;; especificada.
+  ;; Entradas:
+  ;; - board: matriz que representa el tablero del juego
+  ;; - player: valor del jugador que esta jugando (1 o 2)
+  ;; - enemy: valor del jugador enemigo (1 o 2)
+  ;; - fea_res: resultado de la funcion "feasibility", que contiene 
+  ;; los indices de las columnas con espacios disponibles
+  ;; - index: indice de la columna actual en "fea_res"
+  ;;
+  ;; Retorna:
+  ;; - Una lista de los posibles movimientos/candidatos para una 
+  ;; jugada en la columna especificada del tablero.
 (define (candidates board player enemy fea_res index)
   (candidates_aux board player enemy (- (getij fea_res index 1) 1) 
   (getij fea_res index 2))
 )
 
+;Esta funcion es una funcion auxiliar utilizada por la funcion 
+  ;; "candidates". Se encarga de encontrar posibles movimientos en 
+  ;; una columna especifica del tablero, siguiendo diferentes 
+  ;; direcciones (izquierda, arriba-izquierda, abajo-izquierda y 
+  ;; abajo) y comprobando si las casillas correspondientes son 
+  ;; validas para una jugada.
+  ;; Entradas:
+  ;; - board: matriz que representa el tablero del juego
+  ;; - player: valor del jugador que esta jugando (1 o 2)
+  ;; - enemy: valor del jugador enemigo (1 o 2)
+  ;; - i: indice de fila en la matriz que representa el tablero
+  ;; - j: indice de columna en la matriz que representa el tablero
+  ;;
+  ;; Retorna:
+  ;; - Una lista de los posibles movimientos/candidatos para una 
+  ;; jugada en la columna especifica del tablero. Si no hay 
+  ;; movimientos validos, retorna 0.
 (define (candidates_aux board player enemy i j)
   (cond
     ((< i 0) 0)
@@ -514,10 +738,53 @@
 ;       Objetivo
 ;-----------------------
 
+;; Esta funcion se encarga de calcular el objetivo del 
+  ;; jugador actual, es decir, el puntaje total que se puede 
+  ;; obtener a partir de las jugadas posibles en cada columna.
+  ;; Se utiliza la funcion "obj_aux" como funcion auxiliar, 
+  ;; la cual recursivamente va sumando los puntajes obtenidos
+  ;;  en cada columna.
+  ;; Entradas:
+  ;; - board: matriz que representa el tablero del juego
+  ;; - player: valor del jugador que esta jugando (1 o 2)
+  ;; - enemy: valor del jugador enemigo (1 o 2)
+  ;; - fea_res: resultado de la funcion "feasibility", 
+  ;; que contiene los indices de las columnas con espacios
+  ;;  disponibles
+  ;;
+  ;; Retorna:
+  ;; - El puntaje total que se puede obtener a partir de las 
+  ;; jugadas posibles en cada columna.
 (define (objective board player enemy fea_res)
   (obj_aux board player enemy fea_res 0 '())
 )
 
+;; Esta funcion es una funcion auxiliar utilizada por la funcion
+  ;;  "objective". Se encarga de calcular el puntaje de cada 
+  ;; posible jugada en cada columna del tablero y sumarlos para 
+  ;; obtener el puntaje total del jugador actual.
+  ;; Para ello, utiliza las funciones "calculator" y "candidates"
+  ;;  para obtener el puntaje de una jugada y los posibles movimientos
+  ;;  en una columna dada, respectivamente.
+  ;; La funcion utiliza recursion para iterar sobre todas las columnas
+  ;;  con espacios disponibles, almacenando en una lista el puntaje y 
+  ;; las coordenadas de cada posible jugada.
+  ;;
+  ;; Entradas:
+  ;; - board: matriz que representa el tablero del juego
+  ;; - player: valor del jugador que esta jugando (1 o 2)
+  ;; - enemy: valor del jugador enemigo (1 o 2)
+  ;; - fea_res: resultado de la funcion "feasibility", que contiene
+  ;;  los indices de las columnas con espacios disponibles
+  ;; - index: indice actual de la columna en "fea_res"
+  ;; - res: lista acumulativa de los puntajes y coordenadas de 
+  ;; cada posible jugada
+  ;;
+  ;; Retorna:
+  ;; - Una lista con los puntajes y coordenadas de cada posible jugada 
+  ;; en cada columna del tablero. Cada elemento de la lista es a su 
+  ;; vez una lista con tres valores: las coordenadas de la 
+  ;; jugada (fila y columna) y el puntaje obtenido.
 (define (obj_aux board player enemy fea_res index res)
   (cond
     ((= (length res) (length fea_res))
@@ -535,7 +802,24 @@
   )
 )
 
-
+;; Esta funcion se encarga de balancear los puntajes obtenidos 
+  ;; en una jugada, tomando en cuenta tanto el puntaje del jugador 
+  ;; actual como el del jugador enemigo, y sumandoles un puntaje 
+  ;; adicional si la jugada permite conseguir una posicion ganadora 
+  ;; o evita una posicion perdedora.
+  ;;
+  ;; Entradas:
+  ;; - playerscore: puntaje obtenido por el jugador actual en una jugada
+  ;; - enemyscore: puntaje obtenido por el jugador enemigo en una jugada
+  ;; - futurescore: puntaje adicional si la jugada permite conseguir
+  ;;  una posicion ganadora o evita una posicion perdedora
+  ;;
+  ;; Retorna:
+  ;; - El puntaje balanceado de la jugada, teniendo en cuenta los 
+  ;; puntajes del jugador actual y enemigo, asi como la posibilidad
+  ;;  de conseguir una posicion ganadora o evitar una perdedora. 
+  ;; Si la jugada no cumple con ninguna de estas condiciones, 
+  ;; retorna el puntaje del jugador actual sin modificaciones.
 (define (balance playerscore enemyscore futurescore)
   (cond ((> playerscore 900) 1000)
         ((> enemyscore 900) 500)
@@ -549,7 +833,16 @@
 ;       Seleccion
 ;-----------------------
 
-
+;; Esta funcion implementa el algoritmo de ordenamiento Selection 
+  ;; Sort para ordenar una lista de puntos en orden descendente, 
+  ;; de manera que la primera posicion de la lista tenga el puntaje 
+  ;; mas alto.
+  ;; Entradas:
+  ;; - lst: lista de puntos a ordenar
+  ;; Retorna:
+  ;; - Una nueva lista con los mismos elementos que la lista de 
+  ;; entrada, pero ordenados en orden descendente segun el puntaje
+  ;;  de cada elemento.
 (define (selection lst)
   (define (car-get-points lst2)
     (caddar lst2)
@@ -580,6 +873,18 @@
 ;       Solucion
 ;-----------------------
 
+;; Esta funcion toma una lista de listas, donde cada 
+  ;; sublista representa un nodo en un arbol, y retorna el 
+  ;; valor almacenado en el nodo hoja mas profundo del arbol.
+
+  ;; Entradas:
+  ;; - lst: una lista de listas que representa un arbol. Cada
+  ;;  sublista debe contener tres elementos: un identificador 
+  ;; unico del nodo, el valor almacenado en el nodo, y una 
+  ;; lista de subnodos del nodo.
+
+  ;; Retorna:
+  ;; - El valor almacenado en el nodo hoja mas profundo del arbol.
 (define (solution lst)
   (cond
     ((= (length lst) 1) (cadr (car lst)))
@@ -589,6 +894,17 @@
   )
 )
 
+;; Esta funcion toma una lista y devuelve el valor en la posicion 
+  ;; aleatoria generada por el programa.
+  ;;
+  ;; Entradas:
+  ;; - lst: una lista de elementos.
+  ;;
+  ;; Retorna:
+  ;; - El valor en la posicion aleatoria de la lista.
+  ;;
+  ;; Ejemplo:
+  ;; (solution_aux '(1 2 3 4 5)) => 3
 (define (solution_aux lst)
   (define random-index (random (length lst)))
   (cadr (list-ref lst random-index ))
