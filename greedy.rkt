@@ -291,7 +291,7 @@
   (cadr (list-ref lst random-index ))
 )
 
-; (provide greddy)
+
 
 (define tablaprofe
   (list 

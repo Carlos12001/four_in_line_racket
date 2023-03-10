@@ -1,4 +1,6 @@
-; #lang racket/gui
+#lang racket
+
+;; ----- PRUEBAS GREDDY -----
 
 ; ;; ------------------------
 ; ;;     Matriz de PRUEBA 
@@ -73,7 +75,19 @@
 
 
 
+; (define tablaprofe
+;   (list 
+;    (list 0 0 0 0 0 0 0 0 0)
+;    (list 0 0 0 0 0 0 0 0 0)
+;    (list 0 0 0 0 0 0 0 0 0)
+;    (list 1 2 0 0 0 0 0 0 0)
+;    (list 1 1 1 2 0 0 0 0 0)
+;    (list 1 2 1 1 0 0 0 0 0)
+;    (list 1 2 2 2 1 2 0 0 0)
+;    (list 2 1 1 1 2 2 1 2 0))
+; )
 
+; (greedy tablaprofe 2 1)
 
 
 
