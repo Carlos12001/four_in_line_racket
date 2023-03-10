@@ -1,5 +1,44 @@
 ; #lang racket/gui
 
+; (define (get-max-punctuation lst)
+;     (define (car-get-points lst2)
+;         (caddar lst2)
+;     )
+;     (define (get-max-punctuation-aux lst2 max-lst)
+;         (cond 
+;         ((null? lst2)
+;             max-lst
+;         )
+;         ((> (car-get-points lst2) (car-get-points max-lst))
+;              (get-max-punctuation-aux (cdr lst2) 
+;                     (append '() (list (car lst2))))
+;         )
+;         ((= (car-get-points lst2) (car-get-points max-lst))
+;             (get-max-punctuation-aux (cdr lst2) 
+;                     (append max-lst (list (car lst2))))
+;         )
+;         (else
+;              (get-max-punctuation-aux (cdr lst2) 
+;                                         max-lst)
+;         )
+;         )
+;     )
+;     (cond
+;     ((null? lst)
+;         '()
+;     )
+;     (else
+;         (get-max-punctuation-aux (cdr lst) (list (car lst)))
+;     )
+;     )
+; )
+
+; (define board44 '((0 14 15)
+;                        (4 5 10)
+;                        (11 12 5)
+;                        (1 10 -10)
+;                        (4 8 15)))
+; (get-max-punctuation board44)
 
 
 ; (define frame (new frame% [label "Saludo"][width 500][height 500]))
