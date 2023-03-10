@@ -168,13 +168,13 @@
 (define (check-game-status)
   (cond
     ((check-win board actual-player)
-      (display (format "¡Felicidades!: ¡Jugador ~a has ganado el juego!" 
+      (display (format "¡Felicidades!: ¡La ficha ~a ha ganado el juego!" 
       actual-player))
       (define frame3 (new frame% [label "Fin del Juego"]
       [width 500]
       [height 500]))
       (new message% [parent frame3] 
-      [label (format "¡Felicidades!: ¡Jugador ~a has ganado el juego!" 
+      [label (format "¡Felicidades!: ¡La ficha ~a ha ganado el juego!" 
       actual-player)] )
       (send frame2 show #f)
       (send frame3 show #t)
@@ -205,8 +205,28 @@
 
   (update-board-panel)
   (check-game-status)
+  ;; Juega Greddy
   (change-player actual-player)
-  (send msg set-label (format "Turno Jugador =  ~a !" actual-player))
+  (define play-greddy
+    (cond 
+    ((equal? actual-player 2)
+      (greedy board actual-player 1)
+    )
+    (else
+      (greedy board actual-player 2)
+    )
+    )
+  )
+  (set! board (insert-token play-greddy board actual-player))
+  
+  (displayln (format "El Goloso usa ficha ~a puso en col ~a" 
+                                      actual-player
+                                      play-greddy))
+  (print-matrix board)
+  (update-board-panel)
+  (check-game-status)
+  ;; Sede turno player
+  (change-player actual-player)
 ) 
 
 ;; Actualiza como se ve la matriz de botones
