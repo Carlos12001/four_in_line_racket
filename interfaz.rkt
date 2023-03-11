@@ -235,20 +235,27 @@
 
 ;; Actualiza como se ve la matriz de botones
 (define (update-board-panel)
-  (for ([i (in-range (length board))])
-    (for ([j (in-range (length (list-ref board i)))])
-      (define button (list-ref (list-ref buttons-panel i) j))
-      (cond
-        [(equal? 0 (list-ref (list-ref board i) j))
-          (send button set-label "-")
-          (send button enable #t)]
-        [(equal? 1 (list-ref (list-ref board i) j))
-          (send button set-label "1")
-          (send button enable #f)]
-        [(equal? 2 (list-ref (list-ref board i) j))
-          (send button set-label "2")
-          (send button enable #f)]
-      )
+  (define (update-board-panel-helper i j)
+    (cond
+      [(>= i (length board)) #f] ; Caso base: Si i es mayor que la longitud de la lista, termina la recursión
+      [(>= j (length (list-ref board i))) ; Si j es mayor que la longitud de la sublista i-ésima, pasa a la siguiente sublista
+        (update-board-panel-helper (+ i 1) 0)]
+      [else ; Si no, actualiza el botón correspondiente y pasa al siguiente elemento de la sublista
+        (define button (list-ref (list-ref buttons-panel i) j))
+        (cond
+          [(equal? 0 (list-ref (list-ref board i) j))
+            (send button set-label "-")
+            (send button enable #t)]
+          [(equal? 1 (list-ref (list-ref board i) j))
+            (send button set-label "1")
+            (send button enable #f)]
+          [(equal? 2 (list-ref (list-ref board i) j))
+            (send button set-label "2")
+            (send button enable #f)]
+        )
+        (update-board-panel-helper i (+ j 1))
+      ]
     )
   )
+  (update-board-panel-helper 0 0)
 )
