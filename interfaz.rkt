@@ -134,22 +134,30 @@
 ;; Crea la matriz de botones
 (define (create-board-panel board)
   (define panel (new vertical-panel% [parent panel2]))
-  
-  (for ([i (in-range (length board))])
+  (define (create-row-panel i)
     (define row-panel (new horizontal-panel% [parent panel]))
     (define row-buttons '())
-
-    (for ([j (in-range (length (list-ref board i)))])
+    (define (create-button j)
       (define b (new Button% [parent row-panel]
                             [label "-"]
                             [callback button-grid-callback]
                             [row i]
-                            [col j]
-                            ))
+                            [col j])
+      )
       (set! row-buttons (append row-buttons (list b)))
+      (cond 
+      ((< j (- (length (list-ref board i)) 1)) 
+             (create-button (+ j 1)))
+      )
     )
-    (set! buttons-panel (append buttons-panel (list row-buttons)) )
+    (create-button 0)
+    (set! buttons-panel (append buttons-panel (list row-buttons)))
+    (cond 
+    ((< i (- (length board) 1))
+           (create-row-panel (+ i 1)))
+    )
   )
+  (create-row-panel 0)
   panel
 )
 
